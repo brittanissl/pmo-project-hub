@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMO Project Hub</title>
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --surface-2:#eef0f4; --text:#1a1d23; --muted:#5d6878; --border:#dce0e6;
+  --accent:#3451c7; --accent-soft:#e6ebff; --accent-text:#ffffff;
+  --green:#2b8a3e; --green-soft:#e3f5e7; --amber:#b86e00; --amber-soft:#fff1d6; --red:#c92a2a; --red-soft:#ffe5e5;
+  --radius:10px; --shadow:0 1px 2px rgba(16,24,40,.05),0 2px 6px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#101318; --surface:#181c22; --surface-2:#222831; --text:#e7eaee; --muted:#9aa4b2; --border:#2d333c;
+    --accent:#7d93ff; --accent-soft:#232b48; --accent-text:#0d1020;
+    --green:#5fd27a; --green-soft:#1b3123; --amber:#f5b942; --amber-soft:#382d15; --red:#ff7676; --red-soft:#3b1f22;
+    --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;line-height:1.25}
+.muted{color:var(--muted)} .small{font-size:13px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* Header */
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.head-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;font-size:13px;font-weight:800}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs button{border:0;background:none;padding:7px 12px;border-radius:8px;cursor:pointer;color:var(--muted);font-weight:600}
+nav.tabs button.on{background:var(--accent-soft);color:var(--accent)}
+.head-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+
+.btn{border:1px solid var(--border);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.danger{color:var(--red)}
+.btn.sm{padding:4px 9px;font-size:13px}
+.icon-btn{border:0;background:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.icon-btn:hover{background:var(--surface-2);color:var(--text)}
+
+main{padding:22px 0 60px}
+.view-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.view-head h2{font-size:22px}
+.view-head .grow{flex:1}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+.kpi .n{font-size:26px;font-weight:700}
+.kpi .l{color:var(--muted);font-size:13px}
+.kpi.g .n{color:var(--green)} .kpi.a .n{color:var(--amber)} .kpi.r .n{color:var(--red)}
+
+/* Filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters input,.filters select,.field input,.field select,.field textarea,.inline-form input,.inline-form select,textarea.big{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 10px;min-width:0}
+.filters input{flex:1;min-width:180px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px}
+.card:hover{border-color:var(--accent)}
+.card:focus-visible{outline:2px solid var(--accent)}
+.card h3{font-size:16px}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.card-flags{font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px}
+.progress{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);border-radius:99px}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.pill.green{background:var(--green-soft);color:var(--green)}
+.pill.amber{background:var(--amber-soft);color:var(--amber)}
+.pill.red{background:var(--red-soft);color:var(--red)}
+.pill.blue{background:var(--accent-soft);color:var(--accent)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.txt-red{color:var(--red)!important;font-weight:600}
+.empty{padding:40px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius)}
+
+/* Intake */
+.two-col{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:18px;align-items:start}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.box h3{font-size:16px;margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.field label{font-size:13px;font-weight:600;color:var(--muted)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.req{display:flex;gap:14px;align-items:flex-start}
+.score{min-width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;background:var(--accent-soft);color:var(--accent)}
+.req-body{flex:1;min-width:0}
+.req-body h4{margin:0 0 2px;font-size:15px}
+.req-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.list{display:flex;flex-direction:column;gap:10px}
+
+/* Report */
+.report-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+textarea.big{width:100%;min-height:520px;font-family:Consolas,"SF Mono",monospace;font-size:13px;line-height:1.55;resize:vertical}
+
+/* Panel */
+.overlay{position:fixed;inset:0;background:rgba(10,14,22,.45);z-index:20;display:flex;justify-content:flex-end}
+.overlay[hidden]{display:none}
+.panel{background:var(--bg);width:min(680px,100%);height:100%;overflow-y:auto;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.panel-head{background:var(--surface);padding:16px 18px;border-bottom:1px solid var(--border)}
+.panel-head .row{display:flex;gap:10px;align-items:flex-start}
+.panel-head h2{font-size:19px;flex:1}
+.reasons{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
+.ptabs{display:flex;gap:4px;padding:8px 14px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
+.ptabs button{border:0;background:none;padding:6px 11px;border-radius:7px;cursor:pointer;font-weight:600;color:var(--muted);white-space:nowrap}
+.ptabs button.on{background:var(--accent-soft);color:var(--accent)}
+.panel-body{padding:18px}
+.inline-form{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.inline-form input[type=text]{flex:1;min-width:160px}
+.row-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.row-item .t{flex:1;min-width:0}
+.row-item.done .t{text-decoration:line-through;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:3px 11px;font-size:13px;cursor:pointer;font-weight:600;color:var(--muted)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+.update{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.update .d{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.range-row{display:flex;align-items:center;gap:10px}
+.range-row input{flex:1}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:14px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:20px 0}
+
+@media (max-width:760px){
+  .two-col{grid-template-columns:1fr}
+  .head-actions{margin-left:0}
+  .field-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap head-row">
+    <div class="brand"><div class="logo">PMO</div>Project Hub</div>
+    <nav class="tabs" id="tabs">
+      <button data-action="view" data-view="portfolio">Portfolio</button>
+      <button data-action="view" data-view="intake">Intake</button>
+      <button data-action="view" data-view="report">Status Report</button>
+    </nav>
+    <div class="head-actions">
+      <button class="btn sm" data-action="export">Export</button>
+      <button class="btn sm" data-action="import">Import</button>
+      <button class="btn sm" data-action="reset">Reset sample data</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main"></main>
+<footer class="wrap">Sample data is fictional. Your data is saved in this browser only — use Export to back it up.</footer>
+
+<div class="overlay" id="overlay" hidden>
+  <aside class="panel" id="panel" role="dialog" aria-modal="true">
+    <div class="panel-head" id="panelHead"></div>
+    <div class="ptabs" id="panelTabs"></div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ Setup & helpers ============ */
+const STORE_KEY = 'pmo-hub-v1';
+const PHASES = ['Initiate','Plan','Execute','Close','Complete'];
+const RAID_TYPES = ['Risk','Action','Issue','Decision'];
+const SEVERITIES = ['High','Medium','Low'];
+const HEALTH_LABEL = {green:'On track', amber:'At risk', red:'Off track'};
+const HEALTH_RANK = {red:0, amber:1, green:2};
+
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Math.random().toString(36).slice(2, 10);
+function toISO(d){ const z = new Date(d.getTime() - d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
+const todayISO = () => toISO(new Date());
+function addDays(n){ const d = new Date(); d.setDate(d.getDate() + n); return toISO(d); }
+function daysUntil(iso){
+  if(!iso) return null;
+  return Math.round((new Date(iso+'T00:00:00') - new Date(todayISO()+'T00:00:00')) / 86400000);
+}
+function fmtDate(iso){
+  if(!iso) return '—';
+  return new Date(iso+'T00:00:00').toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
+}
+function weekEnding(){ const d = new Date(); d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7)); return toISO(d); }
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1800); }
+
+/* ============ Sample data (fictional company: Northwind Distribution) ============ */
+function sampleData(){
+  const P = (o) => Object.assign({id:uid(), sponsor:'', healthOverride:'', priority:null, summary:'', tasks:[], raid:[], updates:[]}, o);
+  const T = (title, owner, due, done=false) => ({id:uid(), title, owner, due:addDays(due), done});
+  const R = (type, title, owner, severity, status, d) => ({id:uid(), type, title, owner, severity, status, date:addDays(d)});
+  const U = (d, text) => ({id:uid(), date:addDays(d), text});
+  return {
+    version: 1,
+    projects: [
+      P({name:'Warehouse Management System Upgrade', owner:'Dana Ruiz', sponsor:'VP Operations', phase:'Execute',
+         startDate:addDays(-60), dueDate:addDays(45), percent:45, priority:88,
+         summary:'Replace legacy WMS at the Memphis DC with a cloud WMS; includes data migration, scanner rollout and staff training.',
+         tasks:[T('Vendor kickoff and environment setup','Dana Ruiz',-50,true), T('Finalize data migration mapping','Kevin Osei',-3), T('UAT script sign-off','Dana Ruiz',7), T('Cutover plan draft','Kevin Osei',20)],
+         raid:[R('Risk','Key super-user on leave during UAT window','Dana Ruiz','High','Open',-12), R('Issue','Scanner firmware incompatible with new WMS','IT Ops','Medium','Open',-6),
+               R('Decision','Go-live moved to January freeze window','Steering Committee','Medium','Closed',-9), R('Action','Book training rooms for 40 associates','Dana Ruiz','Low','Open',-2)],
+         updates:[U(-7,'Migration mapping 80% complete. Scanner firmware issue escalated to vendor; workaround under test.')]}),
+      P({name:'Finance Month-End Close Automation', owner:'Marcus Lee', sponsor:'CFO', phase:'Execute',
+         startDate:addDays(-95), dueDate:addDays(-4), percent:85, priority:76,
+         summary:'Automate journal entries and reconciliations to cut month-end close from 8 days to 5.',
+         tasks:[T('Automate accrual journal entries','Marcus Lee',-30,true), T('Bank reconciliation rules','Sara Kim',-8), T('Close calendar sign-off','Marcus Lee',5)],
+         raid:[R('Issue','GL account mapping errors found in last close','Sara Kim','High','Open',-5), R('Decision','Keep manual review for intercompany entries','CFO','Low','Closed',-20)],
+         updates:[U(-6,'Mapping errors delayed go-live past target date. Fix in progress; new target pending CFO review.')]}),
+      P({name:'Client Onboarding Playbook', owner:'Priya Shah', sponsor:'Director, Client Services', phase:'Plan',
+         startDate:addDays(-20), dueDate:addDays(60), percent:20, priority:71,
+         summary:'Standard 30-60-90 day onboarding process for new 3PL clients, with templates and handoffs.',
+         tasks:[T('Interview 5 account managers','Priya Shah',-10,true), T('Draft onboarding stages','Priya Shah',6), T('Template pack (kickoff deck, RACI, SLA)','Jordan Bell',25)],
+         raid:[R('Risk','Sales and Ops disagree on handoff point','Priya Shah','Medium','Open',-4)],
+         updates:[U(-3,'Interviews complete; common pain point is unclear handoff from Sales to Ops.')]}),
+      P({name:'HR Onboarding Portal', owner:'Alicia Grant', sponsor:'VP People', phase:'Initiate',
+         startDate:addDays(-5), dueDate:addDays(120), percent:5, priority:58,
+         summary:'Self-service portal for new hire paperwork, equipment requests and first-week checklist.',
+         tasks:[T('Draft project charter','Alicia Grant',4), T('Identify HRIS integration needs','IT Ops',14)],
+         raid:[], updates:[]}),
+      P({name:'Customer Portal Refresh', owner:'Jordan Bell', sponsor:'VP Sales', phase:'Complete',
+         startDate:addDays(-150), dueDate:addDays(-15), percent:100, priority:64,
+         summary:'Refreshed client-facing shipment tracking portal.',
+         tasks:[T('Launch','Jordan Bell',-15,true)],
+         raid:[R('Decision','Retire old portal 30 days after launch','VP Sales','Low','Closed',-16)],
+         updates:[U(-14,'Launched on schedule. Adoption at 72% of active clients in week one.')]})
+    ],
+    intake: [
+      {id:uid(), title:'Vendor scorecard dashboard', requester:'Procurement', notes:'Monthly on-time and fill-rate scorecard for top 20 carriers.', value:4, urgency:4, alignment:4, effort:2, status:'New', created:addDays(-2)},
+      {id:uid(), title:'Route optimization pilot', requester:'Transportation', notes:'Pilot routing software in the Atlanta region.', value:4, urgency:3, alignment:5, effort:3, status:'New', created:addDays(-5)},
+      {id:uid(), title:'Driver mobile app', requester:'Fleet', notes:'Proof of delivery and inspections on mobile.', value:3, urgency:2, alignment:3, effort:5, status:'New', created:addDays(-9)}
+    ]
+  };
+}
+
+/* ============ State ============ */
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw){ const s = JSON.parse(raw); if(s && Array.isArray(s.projects)) return normalize(s); }
+  }catch(e){}
+  return sampleData();
+}
+function normalize(s){
+  s.intake = Array.isArray(s.intake) ? s.intake : [];
+  s.projects.forEach(p => { p.tasks ||= []; p.raid ||= []; p.updates ||= []; p.percent = Number(p.percent) || 0; p.healthOverride ||= ''; });
+  return s;
+}
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+
+let state = load();
+const ui = {view:'portfolio', search:'', health:'active', sort:'health', openId:null, panelTab:'overview', raidFilter:'All', reportScope:'all'};
+const getProject = id => state.projects.find(p => p.id === id);
+
+/* ============ PMO logic ============ */
+const isComplete = p => p.phase === 'Complete' || p.percent >= 100;
+
+// Auto health: explains *why* a project is red/amber, the way a PMO would.
+function healthInfo(p){
+  if(isComplete(p)) return {level:'green', reasons:['Project complete']};
+  const reasons = []; let level = 'green';
+  const bump = l => { if(HEALTH_RANK[l] < HEALTH_RANK[level]) level = l; };
+  const d = daysUntil(p.dueDate);
+  const openHighIssues = p.raid.filter(r => r.type==='Issue' && r.status==='Open' && r.severity==='High').length;
+  const openIssues = p.raid.filter(r => r.type==='Issue' && r.status==='Open').length;
+  const openHighRisks = p.raid.filter(r => r.type==='Risk' && r.status==='Open' && r.severity==='High').length;
+  const overdue = p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) < 0).length;
+
+  if(d !== null && d < 0){ bump('red'); reasons.push(`Past due date by ${-d} day${d===-1?'':'s'}`); }
+  if(openHighIssues){ bump('red'); reasons.push(`${openHighIssues} open high-severity issue${openHighIssues>1?'s':''}`); }
+  else if(openIssues){ bump('amber'); reasons.push(`${openIssues} open issue${openIssues>1?'s':''}`); }
+  if(openHighRisks){ bump('amber'); reasons.push(`${openHighRisks} open high risk${openHighRisks>1?'s':''}`); }
+  if(overdue){ bump('amber'); reasons.push(`${overdue} overdue task${overdue>1?'s':''}`); }
+  if(p.startDate && p.dueDate && d !== null && d >= 0){
+    const total = daysUntil(p.dueDate) - daysUntil(p.startDate);
+    const elapsed = -daysUntil(p.startDate);
+    if(total > 0 && elapsed > 0){
+      const expected = Math.min(100, Math.round(elapsed / total * 100));
+      if(p.percent < expected - 20){ bump('amber'); reasons.push(`Behind schedule: ${p.percent}% done vs ~${expected}% of time used`); }
+    }
+  }
+  if(!reasons.length) reasons.push('No flags');
+  return {level, reasons};
+}
+const effHealth = p => p.healthOverride || healthInfo(p).level;
+
+function intakeScore(r){
+  // Value 30%, urgency 20%, strategic alignment 30%, low effort 20% → 0-100
+  const raw = r.value*0.3 + r.urgency*0.2 + r.alignment*0.3 + (6 - r.effort)*0.2;
+  return Math.round((raw - 1) / 4 * 100);
+}
+
+function healthBadge(p){
+  if(isComplete(p)) return `<span class="pill blue">Complete</span>`;
+  const h = effHealth(p);
+  return `<span class="pill ${h}"><span class="dot"></span>${HEALTH_LABEL[h]}${p.healthOverride?' · manual':''}</span>`;
+}
+function dueLabel(p){
+  if(isComplete(p)) return 'Done';
+  const d = daysUntil(p.dueDate);
+  if(d === null) return 'No due date';
+  if(d < 0) return `${-d}d overdue`;
+  if(d === 0) return 'Due today';
+  return `Due ${fmtDate(p.dueDate)} (${d}d)`;
+}
+
+/* ============ Views ============ */
+function render(){
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.view === ui.view));
+  if(ui.view === 'portfolio') renderPortfolio();
+  else if(ui.view === 'intake') renderIntake();
+  else renderReport();
+}
+
+function renderPortfolio(){
+  const active = state.projects.filter(p => !isComplete(p));
+  const count = l => active.filter(p => effHealth(p) === l).length;
+  const overdueTasks = active.reduce((n,p) => n + p.tasks.filter(t => !t.done && daysUntil(t.due) < 0).length, 0);
+  const openHigh = active.reduce((n,p) => n + p.raid.filter(r => r.status==='Open' && r.severity==='High' && (r.type==='Risk'||r.type==='Issue')).length, 0);
+
+  let list = state.projects.filter(p => {
+    if(ui.search && !(`${p.name} ${p.owner} ${p.sponsor}`.toLowerCase().includes(ui.search.toLowerCase()))) return false;
+    if(ui.health === 'active') return !isComplete(p);
+    if(ui.health === 'complete') return isComplete(p);
+    if(ui.health === 'all') return true;
+    return !isComplete(p) && effHealth(p) === ui.health;
+  });
+  const sorters = {
+    health: (a,b) => (isComplete(a)-isComplete(b)) || HEALTH_RANK[effHealth(a)] - HEALTH_RANK[effHealth(b)] || (a.dueDate||'').localeCompare(b.dueDate||''),
+    due: (a,b) => (a.dueDate||'9999').localeCompare(b.dueDate||'9999'),
+    priority: (a,b) => (b.priority??-1) - (a.priority??-1),
+    name: (a,b) => a.name.localeCompare(b.name)
+  };
+  list.sort(sorters[ui.sort]);
+
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Portfolio</h2><div class="muted small">All projects at a glance. Health is calculated automatically from dates, tasks, risks and issues.</div></div>
+      <button class="btn primary" data-action="new-project">+ New project</button></div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">${active.length}</div><div class="l">Active projects</div></div>
+      <div class="kpi g"><div class="n">${count('green')}</div><div class="l">On track</div></div>
+      <div class="kpi a"><div class="n">${count('amber')}</div><div class="l">At risk</div></div>
+      <div class="kpi r"><div class="n">${count('red')}</div><div class="l">Off track</div></div>
+      <div class="kpi"><div class="n">${overdueTasks}</div><div class="l">Overdue tasks</div></div>
+      <div class="kpi"><div class="n">${openHigh}</div><div class="l">Open high risks/issues</div></div>
+    </div>
+    <div class="filters">
+      <input id="search" type="search" placeholder="Search project, owner or sponsor" value="${esc(ui.search)}">
+      <select id="healthFilter">
+        ${[['active','Active projects'],['red','Off track'],['amber','At risk'],['green','On track'],['complete','Completed'],['all','All projects']]
+          .map(([v,l]) => `<option value="${v}" ${ui.health===v?'selected':''}>${l}</option>`).join('')}
+      </select>
+      <select id="sortBy">
+        ${[['health','Sort: worst health first'],['due','Sort: due date'],['priority','Sort: priority score'],['name','Sort: name']]
+          .map(([v,l]) => `<option value="${v}" ${ui.sort===v?'selected':''}>${l}</option>`).join('')}
+      </select>
+    </div>
+    ${list.length ? `<div class="grid">${list.map(projectCard).join('')}</div>` : `<div class="empty">No projects match these filters.</div>`}`;
+}
+
+function projectCard(p){
+  const risks = p.raid.filter(r => r.type==='Risk' && r.status==='Open').length;
+  const issues = p.raid.filter(r => r.type==='Issue' && r.status==='Open').length;
+  const overdue = p.tasks.filter(t => !t.done && daysUntil(t.due) < 0).length;
+  const late = !isComplete(p) && daysUntil(p.dueDate) < 0;
+  return `<article class="card" tabindex="0" role="button" data-action="open" data-id="${p.id}">
+    <div class="card-top"><span class="pill">${esc(p.phase)}</span>${healthBadge(p)}</div>
+    <h3>${esc(p.name)}</h3>
+    <div class="muted small">${esc(p.owner || 'Unassigned')}${p.priority!=null ? ` · Priority ${p.priority}` : ''}</div>
+    <div class="progress"><span style="width:${Math.min(100,p.percent)}%"></span></div>
+    <div class="card-meta"><span>${p.percent}% complete</span><span class="${late?'txt-red':''}">${dueLabel(p)}</span></div>
+    <div class="card-flags">${risks} open risk${risks===1?'':'s'} · ${issues} open issue${issues===1?'':'s'} · <span class="${overdue?'txt-red':''}">${overdue} overdue task${overdue===1?'':'s'}</span></div>
+  </article>`;
+}
+
+function renderIntake(){
+  const opts = (name, label) => `<div class="field"><label for="in_${name}">${label}</label><select id="in_${name}">${[1,2,3,4,5].map(n => `<option ${n===3?'selected':''}>${n}</option>`).join('')}</select></div>`;
+  const reqs = [...state.intake].sort((a,b) => (a.status==='New'?0:1) - (b.status==='New'?0:1) || intakeScore(b) - intakeScore(a));
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Intake</h2><div class="muted small">The front door for new work. Requests are scored so the highest-value work rises to the top, then approved into projects.</div></div></div>
+    <div class="two-col">
+      <div class="box">
+        <h3>Submit a request</h3>
+        <div class="field"><label for="in_title">Request title</label><input id="in_title" type="text" placeholder="e.g. Carrier invoice audit"></div>
+        <div class="field"><label for="in_requester">Requested by (team or person)</label><input id="in_requester" type="text"></div>
+        <div class="field"><label for="in_notes">What problem does it solve?</label><textarea id="in_notes" rows="3"></textarea></div>
+        <div class="field-row">${opts('value','Business value (1–5)')}${opts('urgency','Urgency (1–5)')}</div>
+        <div class="field-row">${opts('alignment','Strategic fit (1–5)')}${opts('effort','Effort (1 low – 5 high)')}</div>
+        <button class="btn primary" data-action="add-intake">Submit request</button>
+      </div>
+      <div class="list">
+        ${reqs.length ? reqs.map(r => `
+          <div class="box req">
+            <div class="score" title="Priority score out of 100">${intakeScore(r)}</div>
+            <div class="req-body">
+              <div class="card-top"><h4>${esc(r.title)}</h4>
+                <span class="pill ${r.status==='Approved'?'green':r.status==='Declined'?'red':'blue'}">${esc(r.status)}</span></div>
+              <div class="muted small">${esc(r.requester || '—')} · submitted ${fmtDate(r.created)}</div>
+              ${r.notes ? `<div class="small" style="margin-top:6px">${esc(r.notes)}</div>` : ''}
+              <div class="muted small" style="margin-top:6px">Value ${r.value} · Urgency ${r.urgency} · Fit ${r.alignment} · Effort ${r.effort}</div>
+              <div class="req-actions">
+                ${r.status==='New' ? `<button class="btn sm primary" data-action="approve" data-id="${r.id}">Approve → create project</button>
+                  <button class="btn sm" data-action="decline" data-id="${r.id}">Decline</button>` : ''}
+                ${r.status==='Approved' && getProject(r.projectId) ? `<button class="btn sm" data-action="open" data-id="${r.projectId}">Open project</button>` : ''}
+                <button class="btn sm danger" data-action="del-intake" data-id="${r.id}">Delete</button>
+              </div>
+            </div>
+          </div>`).join('') : `<div class="empty">No requests yet.</div>`}
+      </div>
+    </div>`;
+}
+
+function buildReport(scope){
+  const list = scope === 'all' ? state.projects.filter(p => !isComplete(p)) : state.projects.filter(p => p.id === scope);
+  list.sort((a,b) => HEALTH_RANK[effHealth(a)] - HEALTH_RANK[effHealth(b)]);
+  const L = [];
+  L.push('# Weekly Status Report');
+  L.push(`Week ending ${fmtDate(weekEnding())}`);
+  L.push('');
+  if(scope === 'all'){
+    const c = l => list.filter(p => effHealth(p) === l).length;
+    L.push(`**Portfolio summary:** ${list.length} active projects — ${c('green')} on track, ${c('amber')} at risk, ${c('red')} off track.`);
+    const needs = list.filter(p => effHealth(p) !== 'green');
+    if(needs.length) L.push(`**Needs attention:** ${needs.map(p => p.name).join('; ')}.`);
+    L.push('');
+  }
+  list.forEach(p => {
+    const h = effHealth(p), info = healthInfo(p);
+    L.push(`## ${p.name} — ${isComplete(p) ? 'COMPLETE' : HEALTH_LABEL[h].toUpperCase()}`);
+    L.push(`Owner: ${p.owner || 'Unassigned'} | Sponsor: ${p.sponsor || '—'} | Phase: ${p.phase} | ${p.percent}% complete | ${dueLabel(p)}`);
+    const latest = [...p.updates].sort((a,b) => b.date.localeCompare(a.date))[0];
+    L.push(`**Latest update:** ${latest ? `${latest.text} (${fmtDate(latest.date)})` : 'No update recorded.'}`);
+    if(h !== 'green' && !isComplete(p)) L.push(`**Why ${HEALTH_LABEL[h].toLowerCase()}:** ${info.reasons.join('; ')}.`);
+    const upcoming = p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) <= 14).sort((a,b) => a.due.localeCompare(b.due));
+    if(upcoming.length){
+      L.push('**Next two weeks:**');
+      upcoming.forEach(t => L.push(`- ${t.title} — ${t.owner || 'unassigned'}, ${daysUntil(t.due) < 0 ? `OVERDUE (was due ${fmtDate(t.due)})` : `due ${fmtDate(t.due)}`}`));
+    }
+    const open = p.raid.filter(r => r.status==='Open' && (r.type==='Risk' || r.type==='Issue'))
+      .sort((a,b) => SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
+    if(open.length){
+      L.push('**Open risks & issues:**');
+      open.forEach(r => L.push(`- [${r.type} · ${r.severity}] ${r.title} — ${r.owner || 'unassigned'}`));
+    }
+    const decisions = p.raid.filter(r => r.type==='Decision' && daysUntil(r.date) >= -14);
+    if(decisions.length){
+      L.push('**Recent decisions:**');
+      decisions.forEach(r => L.push(`- ${r.title} (${fmtDate(r.date)}, ${r.owner || '—'})`));
+    }
+    L.push('');
+  });
+  if(!list.length) L.push('_No active projects._');
+  return L.join('\n');
+}
+
+function renderReport(){
+  if(ui.reportScope !== 'all' && !getProject(ui.reportScope)) ui.reportScope = 'all';
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Status Report</h2><div class="muted small">Written for you from the portfolio data. Copy it into an email or Teams post, or download it.</div></div></div>
+    <div class="report-controls">
+      <select id="reportScope">
+        <option value="all">All active projects</option>
+        ${state.projects.map(p => `<option value="${p.id}" ${ui.reportScope===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}
+      </select>
+      <button class="btn primary" data-action="copy-report">Copy</button>
+      <button class="btn" data-action="download-report">Download .md</button>
+    </div>
+    <textarea class="big" id="reportText" readonly>${esc(buildReport(ui.reportScope))}</textarea>`;
+}
+
+/* ============ Project panel ============ */
+function openPanel(id, tab='overview'){
+  ui.openId = id; ui.panelTab = tab; ui.raidFilter = 'All';
+  $('#overlay').hidden = false; document.body.style.overflow = 'hidden';
+  renderPanel();
+}
+function closePanel(){ ui.openId = null; $('#overlay').hidden = true; document.body.style.overflow = ''; render(); }
+
+function renderPanelHead(){
+  const p = getProject(ui.openId); if(!p) return;
+  const info = healthInfo(p);
+  $('#panelHead').innerHTML = `
+    <div class="row"><h2>${esc(p.name || 'Untitled project')}</h2><button class="icon-btn" data-action="close" aria-label="Close">✕</button></div>
+    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">${healthBadge(p)}<span class="pill">${esc(p.phase)}</span><span class="pill">${dueLabel(p)}</span></div>
+    <ul class="reasons">${info.reasons.map(r => `<li>${esc(r)}</li>`).join('')}${p.healthOverride ? `<li>Health manually set to "${HEALTH_LABEL[p.healthOverride]}" (auto would be "${HEALTH_LABEL[info.level]}")</li>` : ''}</ul>`;
+}
+
+function renderPanel(){
+  const p = getProject(ui.openId); if(!p){ closePanel(); return; }
+  renderPanelHead();
+  const openRaid = p.raid.filter(r => r.status==='Open').length;
+  const tabs = [['overview','Overview'],['tasks',`Tasks (${p.tasks.filter(t=>!t.done).length})`],['raid',`RAID log (${openRaid} open)`],['updates',`Updates (${p.updates.length})`]];
+  $('#panelTabs').innerHTML = tabs.map(([k,l]) => `<button class="${ui.panelTab===k?'on':''}" data-action="ptab" data-tab="${k}">${l}</button>`).join('');
+  const body = $('#panelBody');
+
+  if(ui.panelTab === 'overview'){
+    body.innerHTML = `
+      <div class="field"><label>Project name</label><input type="text" data-field="name" value="${esc(p.name)}"></div>
+      <div class="field-row">
+        <div class="field"><label>Project owner</label><input type="text" data-field="owner" value="${esc(p.owner)}"></div>
+        <div class="field"><label>Executive sponsor</label><input type="text" data-field="sponsor" value="${esc(p.sponsor)}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Phase</label><select data-field="phase">${PHASES.map(x => `<option ${p.phase===x?'selected':''}>${x}</option>`).join('')}</select></div>
+        <div class="field"><label>Health</label><select data-field="healthOverride">
+          <option value="" ${!p.healthOverride?'selected':''}>Automatic</option>
+          ${['green','amber','red'].map(h => `<option value="${h}" ${p.healthOverride===h?'selected':''}>Manual: ${HEALTH_LABEL[h]}</option>`).join('')}
+        </select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Start date</label><input type="date" data-field="startDate" value="${esc(p.startDate)}"></div>
+        <div class="field"><label>Due date</label><input type="date" data-field="dueDate" value="${esc(p.dueDate)}"></div>
+      </div>
+      <div class="field"><label>Percent complete</label>
+        <div class="range-row"><input type="range" min="0" max="100" step="5" data-field="percent" value="${p.percent}"><strong id="pctLabel">${p.percent}%</strong></div></div>
+      <div class="field"><label>Summary / scope</label><textarea rows="4" data-field="summary">${esc(p.summary)}</textarea></div>
+      <button class="btn danger" data-action="del-project">Delete project</button>`;
+  }
+  else if(ui.panelTab === 'tasks'){
+    const tasks = [...p.tasks].sort((a,b) => (a.done-b.done) || (a.due||'9999').localeCompare(b.due||'9999'));
+    body.innerHTML = `
+      <div class="inline-form">
+        <input type="text" id="newTask" placeholder="New task or milestone">
+        <input type="text" id="newTaskOwner" placeholder="Owner" style="width:130px">
+        <input type="date" id="newTaskDue">
+        <button class="btn primary" data-action="add-task">Add</button>
+      </div>
+      <div class="list">${tasks.length ? tasks.map(t => {
+        const late = !t.done && t.due && daysUntil(t.due) < 0;
+        return `<div class="row-item ${t.done?'done':''}">
+          <input type="checkbox" data-action="toggle-task" data-id="${t.id}" ${t.done?'checked':''} aria-label="Done">
+          <div class="t">${esc(t.title)}<div class="muted small">${esc(t.owner || 'Unassigned')} · <span class="${late?'txt-red':''}">${t.due ? (late ? 'Overdue — ' : 'Due ') + fmtDate(t.due) : 'No date'}</span></div></div>
+          <button class="icon-btn" data-action="del-task" data-id="${t.id}" aria-label="Delete">✕</button></div>`;
+      }).join('') : `<div class="empty">No tasks yet.</div>`}</div>`;
+  }
+  else if(ui.panelTab === 'raid'){
+    const items = p.raid.filter(r => ui.raidFilter === 'All' || r.type === ui.raidFilter)
+      .sort((a,b) => (a.status==='Open'?0:1) - (b.status==='Open'?0:1) || SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
+    const sevClass = {High:'red', Medium:'amber', Low:''};
+    body.innerHTML = `
+      <p class="muted small" style="margin-top:0">RAID = Risks (might happen), Actions (to-dos agreed in meetings), Issues (happening now), Decisions (agreed and logged).</p>
+      <div class="inline-form">
+        <select id="raidType">${RAID_TYPES.map(x => `<option>${x}</option>`).join('')}</select>
+        <input type="text" id="raidTitle" placeholder="Describe it">
+        <input type="text" id="raidOwner" placeholder="Owner" style="width:130px">
+        <select id="raidSev">${SEVERITIES.map(x => `<option ${x==='Medium'?'selected':''}>${x}</option>`).join('')}</select>
+        <button class="btn primary" data-action="add-raid">Add</button>
+      </div>
+      <div class="chips">${['All',...RAID_TYPES].map(x => `<button class="chip ${ui.raidFilter===x?'on':''}" data-action="raid-filter" data-f="${x}">${x}</button>`).join('')}</div>
+      <div class="list">${items.length ? items.map(r => `
+        <div class="row-item ${r.status==='Closed'?'done':''}">
+          <span class="pill blue">${r.type}</span>
+          <div class="t">${esc(r.title)}<div class="muted small">${esc(r.owner || 'Unassigned')} · ${fmtDate(r.date)} · <span class="pill ${sevClass[r.severity]}">${r.severity}</span></div></div>
+          <button class="btn sm" data-action="toggle-raid" data-id="${r.id}">${r.status==='Open' ? 'Close' : 'Reopen'}</button>
+          <button class="icon-btn" data-action="del-raid" data-id="${r.id}" aria-label="Delete">✕</button>
+        </div>`).join('') : `<div class="empty">Nothing logged here yet.</div>`}</div>`;
+  }
+  else {
+    const ups = [...p.updates].sort((a,b) => b.date.localeCompare(a.date));
+    body.innerHTML = `
+      <div class="field"><label for="newUpdate">This week's update</label><textarea id="newUpdate" rows="3" placeholder="What moved, what's stuck, what's next"></textarea></div>
+      <button class="btn primary" data-action="add-update" style="margin-bottom:14px">Add update</button>
+      <div class="list">${ups.length ? ups.map(u => `
+        <div class="update"><div class="d"><span>${fmtDate(u.date)}</span><button class="icon-btn" data-action="del-update" data-id="${u.id}" aria-label="Delete">✕</button></div>${esc(u.text)}</div>`).join('')
+        : `<div class="empty">No updates yet. The latest update feeds the weekly status report.</div>`}</div>`;
+  }
+}
+
+/* ============ Actions ============ */
+function commit(){ save(); if(ui.openId) renderPanel(); render(); }
+
+const actions = {
+  view: el => { ui.view = el.dataset.view; render(); },
+  open: el => openPanel(el.dataset.id),
+  close: () => closePanel(),
+  ptab: el => { ui.panelTab = el.dataset.tab; renderPanel(); },
+  'new-project': () => {
+    const p = {id:uid(), name:'New project', owner:'', sponsor:'', phase:'Initiate', startDate:todayISO(), dueDate:addDays(90), percent:0, healthOverride:'', priority:null, summary:'', tasks:[], raid:[], updates:[]};
+    state.projects.push(p); save(); render(); openPanel(p.id);
+  },
+  'del-project': () => {
+    const p = getProject(ui.openId);
+    if(p && confirm(`Delete "${p.name}"? This can't be undone.`)){ state.projects = state.projects.filter(x => x.id !== p.id); save(); closePanel(); }
+  },
+  'add-task': () => {
+    const title = $('#newTask').value.trim(); if(!title) return $('#newTask').focus();
+    getProject(ui.openId).tasks.push({id:uid(), title, owner:$('#newTaskOwner').value.trim(), due:$('#newTaskDue').value, done:false});
+    commit(); $('#newTask')?.focus();
+  },
+  'del-task': el => { const p = getProject(ui.openId); p.tasks = p.tasks.filter(t => t.id !== el.dataset.id); commit(); },
+  'add-raid': () => {
+    const title = $('#raidTitle').value.trim(); if(!title) return $('#raidTitle').focus();
+    const type = $('#raidType').value;
+    getProject(ui.openId).raid.push({id:uid(), type, title, owner:$('#raidOwner').value.trim(), severity:$('#raidSev').value, status: type==='Decision' ? 'Closed' : 'Open', date:todayISO()});
+    commit();
+  },
+  'toggle-raid': el => { const r = getProject(ui.openId).raid.find(x => x.id === el.dataset.id); r.status = r.status==='Open' ? 'Closed' : 'Open'; commit(); },
+  'del-raid': el => { const p = getProject(ui.openId); p.raid = p.raid.filter(r => r.id !== el.dataset.id); commit(); },
+  'raid-filter': el => { ui.raidFilter = el.dataset.f; renderPanel(); },
+  'add-update': () => {
+    const text = $('#newUpdate').value.trim(); if(!text) return $('#newUpdate').focus();
+    getProject(ui.openId).updates.push({id:uid(), date:todayISO(), text}); commit();
+  },
+  'del-update': el => { const p = getProject(ui.openId); p.updates = p.updates.filter(u => u.id !== el.dataset.id); commit(); },
+  'add-intake': () => {
+    const title = $('#in_title').value.trim(); if(!title) return $('#in_title').focus();
+    const n = id => Number($('#in_'+id).value);
+    state.intake.push({id:uid(), title, requester:$('#in_requester').value.trim(), notes:$('#in_notes').value.trim(),
+      value:n('value'), urgency:n('urgency'), alignment:n('alignment'), effort:n('effort'), status:'New', created:todayISO()});
+    save(); render(); toast('Request submitted');
+  },
+  approve: el => {
+    const r = state.intake.find(x => x.id === el.dataset.id);
+    const p = {id:uid(), name:r.title, owner:'', sponsor:r.requester, phase:'Initiate', startDate:todayISO(), dueDate:addDays(90), percent:0,
+      healthOverride:'', priority:intakeScore(r), summary:r.notes, tasks:[], raid:[], updates:[]};
+    state.projects.push(p); r.status = 'Approved'; r.projectId = p.id;
+    save(); ui.view = 'portfolio'; render(); openPanel(p.id); toast('Project created from request');
+  },
+  decline: el => { state.intake.find(x => x.id === el.dataset.id).status = 'Declined'; save(); render(); },
+  'del-intake': el => { state.intake = state.intake.filter(x => x.id !== el.dataset.id); save(); render(); },
+  'copy-report': async () => {
+    const text = $('#reportText').value;
+    try{ await navigator.clipboard.writeText(text); toast('Report copied'); }
+    catch(e){ $('#reportText').select(); document.execCommand('copy'); toast('Report copied'); }
+  },
+  'download-report': () => download(`status-report-${weekEnding()}.md`, $('#reportText').value, 'text/markdown'),
+  export: () => download(`pmo-hub-backup-${todayISO()}.json`, JSON.stringify(state, null, 2), 'application/json'),
+  import: () => $('#importFile').click(),
+  reset: () => { if(confirm('Replace everything with the sample data?')){ state = sampleData(); save(); if(ui.openId) closePanel(); render(); toast('Sample data restored'); } }
+};
+
+function download(name, text, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type}));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ============ Events ============ */
+document.addEventListener('click', e => {
+  if(e.target.id === 'overlay') return closePanel();
+  const el = e.target.closest('[data-action]');
+  if(!el || el.dataset.action === 'toggle-task') return;
+  const fn = actions[el.dataset.action]; if(fn) fn(el);
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && ui.openId) closePanel();
+  if(e.key === 'Enter' && e.target.matches('.card')) openPanel(e.target.dataset.id);
+  if(e.key === 'Enter' && e.target.matches('#newTask,#newTaskOwner')) actions['add-task']();
+  if(e.key === 'Enter' && e.target.matches('#raidTitle,#raidOwner')) actions['add-raid']();
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if(t.dataset.action === 'toggle-task'){ const task = getProject(ui.openId).tasks.find(x => x.id === t.dataset.id); task.done = t.checked; commit(); }
+  if(t.id === 'healthFilter'){ ui.health = t.value; renderPortfolio(); }
+  if(t.id === 'sortBy'){ ui.sort = t.value; renderPortfolio(); }
+  if(t.id === 'reportScope'){ ui.reportScope = t.value; renderReport(); }
+  if(t.id === 'importFile' && t.files[0]){
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{ const s = JSON.parse(reader.result); if(!Array.isArray(s.projects)) throw 0; state = normalize(s); save(); render(); toast('Data imported'); }
+      catch(err){ alert('That file is not a PMO Hub backup.'); }
+      t.value = '';
+    };
+    reader.readAsText(t.files[0]);
+  }
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if(t.id === 'search'){ ui.search = t.value; const pos = t.selectionStart; renderPortfolio(); const s = $('#search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  const field = t.dataset.field; if(!field || !ui.openId) return;
+  const p = getProject(ui.openId);
+  p[field] = field === 'percent' ? Number(t.value) : t.value;
+  if(field === 'percent') $('#pctLabel').textContent = t.value + '%';
+  save(); renderPanelHead(); if(ui.view === 'portfolio') renderPortfolio();
+});
+
+render();
+</script>
+</body>
+</html>
