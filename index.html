@@ -30,11 +30,12 @@ h1,h2,h3{margin:0;line-height:1.25}
 header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
 .head-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.brand .ver{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:1px 7px}
 .logo{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;font-size:13px;font-weight:800}
 nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
 nav.tabs button{border:0;background:none;padding:7px 12px;border-radius:8px;cursor:pointer;color:var(--muted);font-weight:600}
 nav.tabs button.on{background:var(--accent-soft);color:var(--accent)}
-.head-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.head-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 
 .btn{border:1px solid var(--border);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
 .btn:hover{background:var(--surface-2)}
@@ -42,19 +43,21 @@ nav.tabs button.on{background:var(--accent-soft);color:var(--accent)}
 .btn.primary:hover{filter:brightness(1.08)}
 .btn.danger{color:var(--red)}
 .btn.sm{padding:4px 9px;font-size:13px}
+.btn.on-share{border-color:var(--green);color:var(--green)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .icon-btn{border:0;background:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
 .icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.linkish{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font-weight:600;font-size:inherit;text-align:left}
 
 main{padding:22px 0 60px}
 .view-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .view-head h2{font-size:22px}
-.view-head .grow{flex:1}
-.section-title{font-size:15px;font-weight:700;margin:22px 0 8px}
+.view-head .grow{flex:1;min-width:220px}
 
 /* KPIs */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
-.kpi .n{font-size:26px;font-weight:700}
+.kpi .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
 .kpi .l{color:var(--muted);font-size:13px}
 .kpi.g .n{color:var(--green)} .kpi.a .n{color:var(--amber)} .kpi.r .n{color:var(--red)}
 
@@ -66,15 +69,15 @@ main{padding:22px 0 60px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
 
 /* Cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px}
 .card:hover{border-color:var(--accent)}
 .card:focus-visible{outline:2px solid var(--accent)}
 .card h3{font-size:16px}
 .card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.card-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);gap:8px}
-.card-flags{font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px}
-.gap-flag{font-size:12px;color:var(--amber)}
+.card-top .badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.card-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.card-flags{font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:3px}
 .progress{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
 .progress span{display:block;height:100%;background:var(--accent);border-radius:99px}
 
@@ -83,47 +86,68 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 .pill.amber{background:var(--amber-soft);color:var(--amber)}
 .pill.red{background:var(--red-soft);color:var(--red)}
 .pill.blue{background:var(--accent-soft);color:var(--accent)}
+.pill.ghost{background:none;border:1px solid var(--border)}
 .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
 .txt-red{color:var(--red)!important;font-weight:600}
-.txt-green{color:var(--green);font-weight:600}
+.txt-amber{color:var(--amber)!important;font-weight:600}
+.txt-green{color:var(--green)!important;font-weight:600}
 .empty{padding:40px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius)}
 
-/* Intake */
+/* Layout helpers */
 .two-col{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:18px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:18px}
 .box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
 .box h3{font-size:16px;margin-bottom:12px}
 .field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
 .field label{font-size:13px;font-weight:600;color:var(--muted)}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.field-row.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.field input,.field select,.field textarea{width:100%}
 .req{display:flex;gap:14px;align-items:flex-start}
 .score{min-width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;background:var(--accent-soft);color:var(--accent)}
 .req-body{flex:1;min-width:0}
 .req-body h4{margin:0 0 2px;font-size:15px}
 .req-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.approve-form{margin-top:10px;padding:12px;background:var(--surface-2);border-radius:8px}
+.decision{margin-top:8px;font-size:13px;background:var(--surface-2);border-radius:8px;padding:8px 10px}
 .list{display:flex;flex-direction:column;gap:10px}
-.rubric{font-size:13px;color:var(--muted);display:grid;gap:6px}
-.rubric b{color:var(--text)}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:18px 0 8px}
+.section-title:first-child{margin-top:0}
 
 /* Tables */
-.scroll{overflow-x:auto}
-.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
-.tbl th,.tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
-.tbl th{font-size:12px;color:var(--muted);font-weight:600;background:var(--surface-2)}
-.tbl tr:last-child td{border-bottom:0}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+table.t td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+table.t tr:last-child td{border-bottom:0}
+table.t .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.t tr.total td{font-weight:700;background:var(--surface-2)}
+table.t .nowrap{white-space:nowrap}
+
+/* Capacity bar */
+.bar{height:12px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin:10px 0 6px;position:relative}
+.bar span{display:block;height:100%;border-radius:99px}
+.big-num{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
 
 /* Report */
 .report-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-textarea.big{width:100%;min-height:520px;font-family:Consolas,"SF Mono",monospace;font-size:13px;line-height:1.55;resize:vertical}
+textarea.big{width:100%;min-height:560px;font-family:Consolas,"SF Mono",monospace;font-size:13px;line-height:1.55;resize:vertical}
 
 /* Panel */
 .overlay{position:fixed;inset:0;background:rgba(10,14,22,.45);z-index:20;display:flex;justify-content:flex-end}
 .overlay[hidden]{display:none}
-.panel{background:var(--bg);width:min(680px,100%);height:100%;overflow-y:auto;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.panel{background:var(--bg);width:min(720px,100%);height:100%;overflow-y:auto;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.panel > *{flex-shrink:0}
 .panel-head{background:var(--surface);padding:16px 18px;border-bottom:1px solid var(--border)}
 .panel-head .row{display:flex;gap:10px;align-items:flex-start}
 .panel-head h2{font-size:19px;flex:1}
-.reasons{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
+.health-box{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.hl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+.hl-l{font-weight:700;color:var(--muted);min-width:78px}
+.reasons{margin:0;padding-left:96px;font-size:13px;color:var(--muted)}
+.override-note{font-size:13px;margin-left:86px;padding:6px 10px;border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:0 6px 6px 0}
+.gaps{font-size:13px;background:var(--amber-soft);border-radius:8px;padding:8px 12px}
+.gaps strong{color:var(--amber)}
+.gaps ul{margin:4px 0 0;padding-left:18px}
 .ptabs{display:flex;gap:4px;padding:8px 14px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
 .ptabs button{border:0;background:none;padding:6px 11px;border-radius:7px;cursor:pointer;font-weight:600;color:var(--muted);white-space:nowrap}
 .ptabs button.on{background:var(--accent-soft);color:var(--accent)}
@@ -140,17 +164,43 @@ textarea.big{width:100%;min-height:520px;font-family:Consolas,"SF Mono",monospac
 .update .d{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
 .range-row{display:flex;align-items:center;gap:10px}
 .range-row input{flex:1}
-.sub{font-size:13px;font-weight:700;margin:16px 0 6px}
-.approval{font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.record{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:14px}
+.record strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
 
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:14px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+/* Activity */
+.act-row{display:flex;gap:12px;padding:9px 12px;border-bottom:1px solid var(--border);font-size:14px}
+.act-row:last-child{border-bottom:0}
+.act-when{color:var(--muted);font-size:12px;min-width:118px;white-space:nowrap;padding-top:2px}
+.act-what{flex:1;min-width:0}
+.act-what .who{font-weight:600}
+
+/* Dialog */
+dialog#dlg{border:1px solid var(--border);border-radius:12px;padding:0;background:var(--surface);color:var(--text);width:min(580px,calc(100% - 24px));max-height:calc(100% - 24px);box-shadow:0 12px 48px rgba(0,0,0,.28)}
+dialog#dlg::backdrop{background:rgba(10,14,22,.5)}
+.dlg-head{padding:16px 18px 4px}
+.dlg-head h3{font-size:17px}
+.dlg-body{padding:10px 18px 4px}
+.dlg-body textarea,.dlg-body input,.dlg-body select{width:100%}
+.dlg-err{color:var(--red);font-size:13px;min-height:20px;font-weight:600}
+.dlg-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px 16px;border-top:1px solid var(--border);flex-wrap:wrap}
+.check{border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:10px;background:var(--surface-2)}
+.check.ok{background:var(--green-soft)} .check.warn{background:var(--amber-soft)} .check.bad{background:var(--red-soft)}
+.check b{display:block;margin-bottom:2px}
+.check-line{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0 10px}
+.check-line input{width:auto;margin-top:3px}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:14px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .toast.show{opacity:1}
 footer{color:var(--muted);font-size:12px;text-align:center;padding:20px 0}
 
 @media (max-width:760px){
+  header{position:static}
   .two-col{grid-template-columns:1fr}
   .head-actions{margin-left:0}
-  .field-row{grid-template-columns:1fr}
+  .field-row,.field-row.three{grid-template-columns:1fr}
+  .reasons{padding-left:18px}
+  .override-note{margin-left:0}
+  .act-row{flex-direction:column;gap:2px}
 }
 </style>
 </head>
@@ -158,14 +208,18 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:20px 0}
 
 <header>
   <div class="wrap head-row">
-    <div class="brand"><div class="logo">PMO</div>Project Hub</div>
+    <div class="brand"><div class="logo">PMO</div>Project Hub <span class="ver">v2</span></div>
     <nav class="tabs" id="tabs">
       <button data-action="view" data-view="portfolio">Portfolio</button>
-      <button data-action="view" data-view="dashboard">Dashboard</button>
       <button data-action="view" data-view="intake">Intake</button>
+      <button data-action="view" data-view="deps">Dependencies</button>
+      <button data-action="view" data-view="capacity">Capacity &amp; Budget</button>
       <button data-action="view" data-view="report">Status Report</button>
+      <button data-action="view" data-view="activity">Activity</button>
     </nav>
     <div class="head-actions">
+      <button class="btn sm" data-action="set-user" id="userBtn">Set your name</button>
+      <button class="btn sm" data-action="share" id="shareBtn">Team sharing</button>
       <button class="btn sm" data-action="export">Export</button>
       <button class="btn sm" data-action="import">Import</button>
       <button class="btn sm" data-action="reset">Reset sample data</button>
@@ -175,7 +229,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:20px 0}
 </header>
 
 <main class="wrap" id="main"></main>
-<footer class="wrap">Sample data is fictional. Your data is saved in this browser only — use Export to back it up.</footer>
+<footer class="wrap" id="footer"></footer>
 
 <div class="overlay" id="overlay" hidden>
   <aside class="panel" id="panel" role="dialog" aria-modal="true">
@@ -184,25 +238,32 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:20px 0}
     <div class="panel-body" id="panelBody"></div>
   </aside>
 </div>
+<dialog id="dlg"></dialog>
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============ Setup & helpers ============ */
 const STORE_KEY = 'pmo-hub-v2';
-const LEGACY_KEY = 'pmo-hub-v1';
+const OLD_STORE_KEY = 'pmo-hub-v1';
+const USER_KEY = 'pmo-hub-user';
 const PHASES = ['Initiate','Plan','Execute','Close','Complete'];
-const RAID_TYPES = ['Risk','Action','Issue','Decision'];
+// RAID log: Risks, Actions, Issues, Decisions.
+const LOG_TYPES = ['Risk','Issue','Action','Decision'];
+const LOG_HELP = {
+  'Risk':'might happen',
+  'Issue':'happening now',
+  'Action':'agreed to-do',
+  'Decision':'agreed and logged'
+};
+const CLOSED_ON_ADD = ['Decision'];
 const SEVERITIES = ['High','Medium','Low'];
 const HEALTH_LABEL = {green:'On track', amber:'At risk', red:'Off track'};
 const HEALTH_RANK = {red:0, amber:1, green:2};
-const OWNER_CAPACITY = 4;      // active projects per owner before a capacity warning
-const BUDGET_SLACK = 0.15;     // spend may run 15 points ahead of progress before it is flagged
-const STALE_DAYS = 14;         // no update in this many days = data gap
+const DEFAULT_SETTINGS = {capacityFTE:12, maxPerOwner:2, staleDays:14, overrideReviewDays:14};
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid = () => Math.random().toString(36).slice(2, 10);
-const fmtMoney = n => '$' + Math.round(Number(n) || 0).toLocaleString();
 function toISO(d){ const z = new Date(d.getTime() - d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
 const todayISO = () => toISO(new Date());
 function addDays(n){ const d = new Date(); d.setDate(d.getDate() + n); return toISO(d); }
@@ -214,222 +275,301 @@ function fmtDate(iso){
   if(!iso) return '—';
   return new Date(iso+'T00:00:00').toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
 }
+function fmtStamp(ts){
+  return new Date(ts).toLocaleString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'});
+}
 function weekEnding(){ const d = new Date(); d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7)); return toISO(d); }
-function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1800); }
+const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+const money = n => '$' + Math.round(num(n)).toLocaleString('en-US');
+const moneyShort = n => { n = num(n); return n >= 1e6 ? '$' + (n/1e6).toFixed(1).replace(/\.0$/,'') + 'M' : n >= 1e3 ? '$' + Math.round(n/1e3) + 'k' : '$' + Math.round(n); };
+const fte = n => (Math.round(num(n)*10)/10).toString();
+const plural = (n, word, pl) => `${n} ${n === 1 ? word : (pl || word + 's')}`;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2200); }
+function getPath(o, path){ return path.split('.').reduce((a, k) => a == null ? a : a[k], o); }
+function setPath(o, path, v){ const ks = path.split('.'); const last = ks.pop(); const tgt = ks.reduce((a, k) => (a[k] ??= {}), o); tgt[last] = v; }
+function currentUser(){ try{ return localStorage.getItem(USER_KEY) || ''; }catch(e){ return ''; } }
 
 /* ============ Sample data (fictional company: Northwind Distribution) ============ */
+function blankProject(o){
+  return Object.assign({id:uid(), name:'New project', owner:'', sponsor:'', phase:'Initiate', startDate:todayISO(), dueDate:addDays(90), percent:0,
+    priority:null, summary:'', fte:0, budget:{approved:0, actual:0, forecast:0},
+    healthOverride:'', overrideReason:'', overrideBy:'', overrideDate:'',
+    deps:[], approval:null, tasks:[], raid:[], updates:[]}, o);
+}
 function sampleData(){
-  const P = o => Object.assign({id:uid(), sponsor:'', healthOverride:'', priority:null, summary:'', tasks:[], raid:[], updates:[],
-                               dependsOn:[], history:[], approvedBudget:0, actual:0, forecast:0}, o);
+  const P = blankProject;
   const T = (title, owner, due, done=false) => ({id:uid(), title, owner, due:addDays(due), done});
-  const R = (type, title, owner, severity, status, d, impact='') => ({id:uid(), type, title, owner, severity, status, date:addDays(d), impact});
-  const U = (d, text) => ({id:uid(), date:addDays(d), text});
+  const R = (type, title, owner, severity, status, d) => ({id:uid(), type, title, owner, severity, status, date:addDays(d)});
+  const U = (d, text, by='') => ({id:uid(), date:addDays(d), text, by});
+
+  const wms = P({name:'Warehouse Management System Upgrade', owner:'Dana Ruiz', sponsor:'VP Operations', phase:'Execute',
+    startDate:addDays(-60), dueDate:addDays(45), percent:45, priority:88, fte:4,
+    budget:{approved:450000, actual:240000, forecast:470000},
+    summary:'Replace legacy WMS at the Memphis DC with a cloud WMS; includes data migration, scanner rollout and staff training.',
+    approval:{by:'Steering Committee', date:addDays(-62), reason:'Legacy WMS vendor ends support next year and Memphis DC throughput is capped by the current system.', fte:4, committedBefore:3.5, capacity:12, overCapacity:false},
+    tasks:[T('Vendor kickoff and environment setup','Dana Ruiz',-50,true), T('Finalize data migration mapping','Kevin Osei',-3), T('UAT script sign-off','Dana Ruiz',7), T('Cutover plan draft','Kevin Osei',20)],
+    raid:[R('Risk','Key super-user on leave during UAT window','Dana Ruiz','High','Open',-12), R('Issue','Scanner firmware incompatible with new WMS','IT Ops','Medium','Open',-6),
+          R('Decision','Go-live moved to January freeze window','Steering Committee','Medium','Closed',-9), R('Action','Book training rooms for 40 associates','Dana Ruiz','Low','Open',-2),
+          R('Risk','Vendor provides on-site hypercare for two weeks after go-live','Dana Ruiz','High','Open',-40)],
+    updates:[U(-7,'Migration mapping 80% complete. Scanner firmware issue escalated to vendor; workaround under test.','Dana Ruiz')]});
+
+  const fin = P({name:'Finance Month-End Close Automation', owner:'Marcus Lee', sponsor:'CFO', phase:'Execute',
+    startDate:addDays(-95), dueDate:addDays(-4), percent:85, priority:76, fte:2,
+    budget:{approved:120000, actual:118000, forecast:140000},
+    approval:{by:'CFO', date:addDays(-97), reason:'Close takes 8 days; the board wants results by day 5.', fte:2, committedBefore:4.5, capacity:12, overCapacity:false},
+    healthOverride:'amber', overrideBy:'Marcus Lee', overrideDate:addDays(-3),
+    overrideReason:'Mapping fix is in testing and the CFO has agreed a new target date; impact on the close is contained.',
+    summary:'Automate journal entries and reconciliations to cut month-end close from 8 days to 5.',
+    tasks:[T('Automate accrual journal entries','Marcus Lee',-30,true), T('Bank reconciliation rules','Sara Kim',-8), T('Close calendar sign-off','Marcus Lee',5)],
+    raid:[R('Issue','GL account mapping errors found in last close','Sara Kim','High','Open',-5), R('Decision','Keep manual review for intercompany entries','CFO','Low','Closed',-20),
+          R('Action','Run a parallel close before cutting over automated entries','Marcus Lee','Medium','Closed',-5)],
+    updates:[U(-6,'Mapping errors delayed go-live past target date. Fix in progress; new target pending CFO review.','Marcus Lee')]});
+
+  const onb = P({name:'Client Onboarding Playbook', owner:'Priya Shah', sponsor:'Director, Client Services', phase:'Plan',
+    startDate:addDays(-20), dueDate:addDays(60), percent:20, priority:71, fte:1.5,
+    budget:{approved:40000, actual:6000, forecast:40000},
+    summary:'Standard 30-60-90 day onboarding process for new 3PL clients, with templates and handoffs.',
+    approval:{by:'Director, Client Services', date:addDays(-21), reason:'Two recent client escalations traced to inconsistent onboarding.', fte:1.5, committedBefore:7.5, capacity:12, overCapacity:false},
+    tasks:[T('Interview 5 account managers','Priya Shah',-10,true), T('Draft onboarding stages','Priya Shah',6), T('Template pack (kickoff deck, RACI, SLA)','Jordan Bell',25)],
+    raid:[R('Risk','Sales and Ops disagree on handoff point','Priya Shah','Medium','Open',-4), R('Risk','No standard SLA template for 3PL clients','Jordan Bell','Medium','Open',-8)],
+    updates:[U(-3,'Interviews complete; common pain point is unclear handoff from Sales to Ops.','Priya Shah')]});
+
+  const hr = P({name:'HR Onboarding Portal', owner:'Alicia Grant', sponsor:'VP People', phase:'Initiate',
+    startDate:addDays(-5), dueDate:addDays(120), percent:5, priority:58, fte:1,
+    budget:{approved:85000, actual:0, forecast:85000},
+    approval:{by:'PMO Review Board', date:addDays(-6), reason:'New-hire paperwork errors are delaying first-day productivity at every DC.', fte:1, committedBefore:8, capacity:12, overCapacity:false},
+    summary:'Self-service portal for new hire paperwork, equipment requests and first-week checklist.',
+    tasks:[T('Draft project charter','Alicia Grant',4), T('Identify HRIS integration needs','IT Ops',14)],
+    raid:[], updates:[]});
+
+  const carrier = P({name:'Carrier Contract Renewal', owner:'', sponsor:'Director, Transportation', phase:'Plan',
+    startDate:addDays(-40), dueDate:addDays(35), percent:15, priority:67, fte:1,
+    budget:{approved:30000, actual:2000, forecast:30000},
+    summary:'Renegotiate rates with the top 10 carriers before Q1 renewals. Needs clean carrier spend data from the close automation.',
+    tasks:[],
+    raid:[R('Risk','No benchmark rate data for LTL lanes','Transportation','High','Open',-20), R('Risk','Fuel surcharge index stays within current band','Transportation','Medium','Open',-30)],
+    updates:[U(-24,'Carrier list agreed. Waiting on spend data from Finance.','')]});
+
+  const portal = P({name:'Customer Portal Refresh', owner:'Jordan Bell', sponsor:'VP Sales', phase:'Complete',
+    startDate:addDays(-150), dueDate:addDays(-15), percent:100, priority:64, fte:2,
+    budget:{approved:150000, actual:146000, forecast:146000},
+    summary:'Refreshed client-facing shipment tracking portal.',
+    tasks:[T('Launch','Jordan Bell',-15,true)],
+    raid:[R('Decision','Retire old portal 30 days after launch','VP Sales','Low','Closed',-16), R('Action','Pilot with 3 friendly clients before full launch','Jordan Bell','Medium','Closed',-14)],
+    updates:[U(-14,'Launched on schedule. Adoption at 72% of active clients in week one.','Jordan Bell')]});
+
+  carrier.deps = [{id:uid(), on:fin.id, neededBy:addDays(10), note:'Needs clean carrier accrual data from the automated close'}];
+  onb.deps = [{id:uid(), on:wms.id, neededBy:addDays(30), note:'Onboarding steps use the new WMS client setup screens'}];
+  hr.deps = [{id:uid(), on:portal.id, neededBy:addDays(60), note:'Reuses the portal login components'}];
+
+  const A = (daysAgo, hour, user, proj, action, detail) => {
+    const d = new Date(); d.setDate(d.getDate() - daysAgo); d.setHours(hour, 15, 0, 0);
+    return {id:uid(), ts:d.toISOString(), user, projectId:proj ? proj.id : null, project:proj ? proj.name : '', action, detail};
+  };
   return {
     version: 2,
-    projects: [
-      P({id:'p-wms', name:'Warehouse Management System Upgrade', owner:'Dana Ruiz', sponsor:'VP Operations', phase:'Execute',
-         startDate:addDays(-60), dueDate:addDays(45), percent:45, priority:88, approvedBudget:500000, actual:340000, forecast:520000,
-         summary:'Replace legacy WMS at the Memphis DC with a cloud WMS; includes data migration, scanner rollout and staff training.',
-         tasks:[T('Vendor kickoff and environment setup','Dana Ruiz',-50,true), T('Finalize data migration mapping','Kevin Osei',-3), T('UAT script sign-off','Dana Ruiz',7), T('Cutover plan draft','Kevin Osei',20)],
-         raid:[R('Risk','Key super-user on leave during UAT window','Dana Ruiz','High','Open',-12),
-               R('Issue','Scanner firmware incompatible with new WMS','IT Ops','Medium','Open',-6),
-               R('Decision','Go-live moved to January freeze window','Steering Committee','Medium','Closed',-9),
-               R('Decision','Replace scanners now or keep firmware workaround','Steering Committee','High','Open',-4,'Cutover slips 4+ weeks if unresolved'),
-               R('Action','Book training rooms for 40 associates','Dana Ruiz','Low','Open',-2)],
-         updates:[U(-7,'Migration mapping 80% complete. Scanner firmware issue escalated to vendor; workaround under test.')],
-         history:[{date:addDays(-7), health:'green'}]}),
-      P({id:'p-fin', name:'Finance Month-End Close Automation', owner:'Marcus Lee', sponsor:'CFO', phase:'Execute',
-         startDate:addDays(-95), dueDate:addDays(-4), percent:85, priority:76, approvedBudget:120000, actual:98000, forecast:125000,
-         dependsOn:['p-wms'],
-         summary:'Automate journal entries and reconciliations to cut month-end close from 8 days to 5.',
-         tasks:[T('Automate accrual journal entries','Marcus Lee',-30,true), T('Bank reconciliation rules','Sara Kim',-8), T('Close calendar sign-off','Marcus Lee',5)],
-         raid:[R('Issue','GL account mapping errors found in last close','Sara Kim','High','Open',-5),
-               R('Decision','Keep manual review for intercompany entries','CFO','Low','Closed',-20)],
-         updates:[U(-6,'Mapping errors delayed go-live past target date. Fix in progress; new target pending CFO review.')]}),
-      P({id:'p-onb', name:'Client Onboarding Playbook', owner:'Priya Shah', sponsor:'Director, Client Services', phase:'Plan',
-         startDate:addDays(-20), dueDate:addDays(60), percent:20, priority:71, approvedBudget:40000, actual:6000, forecast:38000,
-         summary:'Standard 30-60-90 day onboarding process for new 3PL clients, with templates and handoffs.',
-         tasks:[T('Interview 5 account managers','Priya Shah',-10,true), T('Draft onboarding stages','Priya Shah',6), T('Template pack (kickoff deck, RACI, SLA)','Jordan Bell',25)],
-         raid:[R('Risk','Sales and Ops disagree on handoff point','Priya Shah','Medium','Open',-4),
-               R('Decision','Who owns the Sales-to-Ops handoff point','VP Sales','Medium','Open',-6,'Onboarding stages cannot be finalized')],
-         updates:[U(-3,'Interviews complete; common pain point is unclear handoff from Sales to Ops.')]}),
-      P({id:'p-hr', name:'HR Onboarding Portal', owner:'Alicia Grant', sponsor:'VP People', phase:'Initiate',
-         startDate:addDays(-5), dueDate:addDays(120), percent:5, priority:58,
-         summary:'Self-service portal for new hire paperwork, equipment requests and first-week checklist.',
-         tasks:[T('Draft project charter','Alicia Grant',4), T('Identify HRIS integration needs','IT Ops',14)],
-         raid:[], updates:[]}),
-      P({id:'p-cp', name:'Customer Portal Refresh', owner:'Jordan Bell', sponsor:'VP Sales', phase:'Complete',
-         startDate:addDays(-150), dueDate:addDays(-15), percent:100, priority:64,
-         summary:'Refreshed client-facing shipment tracking portal.',
-         tasks:[T('Launch','Jordan Bell',-15,true)],
-         raid:[R('Decision','Retire old portal 30 days after launch','VP Sales','Low','Closed',-16)],
-         updates:[U(-14,'Launched on schedule. Adoption at 72% of active clients in week one.')]})
-    ],
+    settings: {...DEFAULT_SETTINGS},
+    projects: [wms, fin, onb, hr, carrier, portal],
     intake: [
-      {id:uid(), title:'Vendor scorecard dashboard', requester:'Procurement', owner:'', notes:'Monthly on-time and fill-rate scorecard for top 20 carriers.', value:4, urgency:4, alignment:4, effort:2, status:'New', created:addDays(-2)},
-      {id:uid(), title:'Route optimization pilot', requester:'Transportation', owner:'', notes:'Pilot routing software in the Atlanta region.', value:4, urgency:3, alignment:5, effort:3, status:'New', created:addDays(-5)},
-      {id:uid(), title:'Driver mobile app', requester:'Fleet', owner:'', notes:'Proof of delivery and inspections on mobile.', value:3, urgency:2, alignment:3, effort:5, status:'New', created:addDays(-9)}
-    ]
+      {id:uid(), title:'Vendor scorecard dashboard', requester:'Procurement', notes:'Monthly on-time and fill-rate scorecard for top 20 carriers.', value:4, urgency:4, alignment:4, effort:2, estFte:1, estCost:25000, status:'New', created:addDays(-2)},
+      {id:uid(), title:'Route optimization pilot', requester:'Transportation', notes:'Pilot routing software in the Atlanta region.', value:4, urgency:3, alignment:5, effort:3, estFte:2.5, estCost:180000, status:'New', created:addDays(-5)},
+      {id:uid(), title:'Driver mobile app', requester:'Fleet', notes:'Proof of delivery and inspections on mobile.', value:3, urgency:2, alignment:3, effort:5, estFte:3, estCost:250000, status:'New', created:addDays(-9)},
+      {id:uid(), title:'Warehouse signage refresh', requester:'Facilities', notes:'New wayfinding signage across three DCs.', value:2, urgency:2, alignment:1, effort:2, estFte:0.5, estCost:60000, status:'Declined', created:addDays(-15),
+       decision:{by:'PMO Review Board', date:addDays(-12), reason:'Low strategic fit this year; revisit in FY27 planning.'}}
+    ],
+    audit: [
+      A(2, 10, 'Dana Ruiz', wms, 'Log item added', 'Action: Book training rooms for 40 associates'),
+      A(3, 16, 'Marcus Lee', fin, 'Health override', 'Automatic (calculated Off track) → manual At risk. Reason: Mapping fix is in testing and the CFO has agreed a new target date.'),
+      A(5, 9, 'Sara Kim', fin, 'Log item added', 'Issue (High): GL account mapping errors found in last close'),
+      A(9, 14, 'Dana Ruiz', wms, 'Log item added', 'Decision: Go-live moved to January freeze window'),
+      A(12, 11, 'PMO Review Board', null, 'Request declined', 'Warehouse signage refresh. Reason: Low strategic fit this year; revisit in FY27 planning.'),
+      A(21, 13, 'Director, Client Services', onb, 'Request approved', 'Approved into a project. 1.5 FTE, budget $40,000. Capacity after approval: 9 of 12 FTE.')
+    ],
+    meta: {savedAt:'', savedBy:''}
   };
 }
 
 /* ============ State ============ */
 function load(){
-  for(const key of [STORE_KEY, LEGACY_KEY]){
-    try{
-      const raw = localStorage.getItem(key);
-      if(raw){ const s = JSON.parse(raw); if(s && Array.isArray(s.projects)) return normalize(s); }
-    }catch(e){}
-  }
+  try{
+    const raw = localStorage.getItem(STORE_KEY) || localStorage.getItem(OLD_STORE_KEY);
+    if(raw){ const s = JSON.parse(raw); if(s && Array.isArray(s.projects)) return normalize(s); }
+  }catch(e){}
   return sampleData();
 }
+// Brings older (v1) data up to v2 shape without losing anything.
 function normalize(s){
+  s.version = 2;
+  s.settings = Object.assign({...DEFAULT_SETTINGS}, s.settings || {});
   s.intake = Array.isArray(s.intake) ? s.intake : [];
-  s.intake.forEach(r => { r.owner ||= ''; r.status ||= 'New'; });
-  s.projects.forEach(p => {
-    p.tasks ||= []; p.raid ||= []; p.updates ||= []; p.history ||= []; p.dependsOn ||= [];
-    p.percent = Number(p.percent) || 0; p.healthOverride ||= '';
-    p.approvedBudget = Number(p.approvedBudget) || 0; p.actual = Number(p.actual) || 0; p.forecast = Number(p.forecast) || 0;
-    p.raid.forEach(r => { r.owner ||= ''; r.impact ||= ''; });
+  s.audit = Array.isArray(s.audit) ? s.audit : [];
+  s.meta = s.meta || {savedAt:'', savedBy:''};
+  s.projects = s.projects.map(p => {
+    const q = blankProject(p);
+    q.tasks ||= []; q.raid ||= []; q.updates ||= []; q.deps ||= [];
+    q.percent = num(q.percent); q.fte = num(q.fte);
+    q.budget = Object.assign({approved:0, actual:0, forecast:0}, q.budget || {});
+    q.healthOverride ||= ''; q.overrideReason ||= ''; q.overrideBy ||= ''; q.overrideDate ||= '';
+    return q;
   });
+  s.intake.forEach(r => { r.estFte = num(r.estFte); r.estCost = num(r.estCost); });
+  const TYPE_MAP = {Gap:'Risk', Assumption:'Risk', Dependency:'Risk', 'Lesson learned':'Action'};
+  s.projects.forEach(p => p.raid.forEach(r => { if(TYPE_MAP[r.type]) r.type = TYPE_MAP[r.type]; }));
   return s;
 }
-function snapshot(){
-  // One health reading per project per day, kept for the week-over-week trend.
-  const t = todayISO();
-  state.projects.forEach(p => {
-    const h = isComplete(p) ? 'complete' : effHealth(p);
-    const last = p.history[p.history.length - 1];
-    if(last && last.date === t) last.health = h; else p.history.push({date:t, health:h});
-    if(p.history.length > 60) p.history = p.history.slice(-60);
-  });
-}
-function save(){ snapshot(); try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
 
 let state = load();
-const ui = {view:'portfolio', search:'', health:'active', sort:'health', openId:null, panelTab:'overview', raidFilter:'All', reportScope:'all', approveId:null};
+const ui = {view:'portfolio', search:'', health:'active', sort:'health', openId:null, panelTab:'overview', raidFilter:'All', reportScope:'all',
+            actProject:'all', actUser:'all', actSearch:'', actLimit:150, snap:{}};
 const getProject = id => state.projects.find(p => p.id === id);
 
-/* ============ PMO logic ============ */
-const isComplete = p => p.phase === 'Complete' || p.percent >= 100 || (p.tasks.length > 0 && effPercent(p) >= 100);
-
-// Progress is calculated from tasks when there are any; otherwise the typed-in percent is used.
-function effPercent(p){
-  const n = p.tasks.length;
-  return n ? Math.round(p.tasks.filter(t => t.done).length / n * 100) : p.percent;
+function save(){
+  state.meta = {savedAt:new Date().toISOString(), savedBy:currentUser()};
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+  share.queueWrite();
 }
 
-// Health from the project's own data (no dependencies). Returns reasons only for real flags.
-function healthCore(p){
+/* ============ Audit trail ============ */
+function logAudit(action, detail, projectId = null, projectName){
+  const p = projectId ? getProject(projectId) : null;
+  state.audit.unshift({id:uid(), ts:new Date().toISOString(), user:currentUser() || 'Unknown user',
+    projectId, project: projectName ?? (p ? p.name : ''), action, detail});
+  if(state.audit.length > 3000) state.audit.length = 3000;
+}
+const FIELD_LABELS = {name:'Project name', owner:'Project owner', sponsor:'Executive sponsor', phase:'Phase', startDate:'Start date', dueDate:'Due date',
+  percent:'Percent complete', summary:'Summary', fte:'Team size (FTE)', 'budget.approved':'Approved budget', 'budget.actual':'Actual spend', 'budget.forecast':'Forecast at completion'};
+function fmtVal(field, v){
+  if(v === '' || v == null) return '(blank)';
+  if(field.endsWith('Date')) return fmtDate(v);
+  if(field.startsWith('budget.')) return money(v);
+  if(field === 'percent') return v + '%';
+  if(field === 'fte') return fte(v) + ' FTE';
+  const s = String(v); return s.length > 80 ? `"${s.slice(0,77)}…"` : `"${s}"`;
+}
+
+/* ============ PMO logic ============ */
+const isComplete = p => p.phase === 'Complete' || p.percent >= 100;
+const activeProjects = () => state.projects.filter(p => !isComplete(p));
+const S = () => state.settings;
+
+function forecastOf(p){
+  const b = p.budget || {};
+  if(num(b.forecast) > 0) return num(b.forecast);
+  return Math.max(num(b.approved), num(b.actual));
+}
+function budgetInfo(p){
+  const b = p.budget || {}; const approved = num(b.approved), actual = num(b.actual), forecast = forecastOf(p);
+  const variancePct = approved > 0 ? Math.round((forecast - approved) / approved * 100) : null;
+  const burnPct = approved > 0 ? Math.round(actual / approved * 100) : null;
+  return {approved, actual, forecast, variance: forecast - approved, variancePct, burnPct};
+}
+
+// Health from the project's own data (no dependency rules). Used for upstream checks to avoid loops.
+function baseHealth(p){
   if(isComplete(p)) return {level:'green', reasons:['Project complete']};
   const reasons = []; let level = 'green';
   const bump = l => { if(HEALTH_RANK[l] < HEALTH_RANK[level]) level = l; };
   const d = daysUntil(p.dueDate);
-  const openHighIssues = p.raid.filter(r => r.type==='Issue' && r.status==='Open' && r.severity==='High').length;
-  const openIssues = p.raid.filter(r => r.type==='Issue' && r.status==='Open').length;
-  const openHighRisks = p.raid.filter(r => r.type==='Risk' && r.status==='Open' && r.severity==='High').length;
+  const open = (type, sev) => p.raid.filter(r => r.type === type && r.status === 'Open' && (!sev || r.severity === sev)).length;
+  const openHighIssues = open('Issue','High'), openIssues = open('Issue');
   const overdue = p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) < 0).length;
-  const pct = effPercent(p);
 
-  if(d !== null && d < 0){ bump('red'); reasons.push(`Past due date by ${-d} day${d===-1?'':'s'}`); }
-  if(openHighIssues){ bump('red'); reasons.push(`${openHighIssues} open high-severity issue${openHighIssues>1?'s':''}`); }
-  else if(openIssues){ bump('amber'); reasons.push(`${openIssues} open issue${openIssues>1?'s':''}`); }
-  if(openHighRisks){ bump('amber'); reasons.push(`${openHighRisks} open high risk${openHighRisks>1?'s':''}`); }
-  if(overdue){ bump('amber'); reasons.push(`${overdue} overdue task${overdue>1?'s':''}`); }
+  if(d !== null && d < 0){ bump('red'); reasons.push(`Past due date by ${plural(-d,'day')}`); }
+  if(openHighIssues){ bump('red'); reasons.push(`${plural(openHighIssues,'open high-severity issue')}`); }
+  else if(openIssues){ bump('amber'); reasons.push(`${plural(openIssues,'open issue')}`); }
+  [['Risk','high risk']].forEach(([t, w]) => {
+    const n = open(t,'High'); if(n){ bump('amber'); reasons.push(`${plural(n, 'open ' + w)}`); }
+  });
+  if(overdue){ bump('amber'); reasons.push(`${plural(overdue,'overdue task')}`); }
   if(p.startDate && p.dueDate && d !== null && d >= 0){
     const total = daysUntil(p.dueDate) - daysUntil(p.startDate);
     const elapsed = -daysUntil(p.startDate);
     if(total > 0 && elapsed > 0){
       const expected = Math.min(100, Math.round(elapsed / total * 100));
-      if(pct < expected - 20){ bump('amber'); reasons.push(`Behind schedule: ${pct}% done vs ~${expected}% of time used`); }
+      if(p.percent < expected - 20){ bump('amber'); reasons.push(`Behind schedule: ${p.percent}% done vs ~${expected}% of time used`); }
     }
   }
-  if(p.approvedBudget > 0){
-    if(p.forecast > p.approvedBudget){ bump('amber'); reasons.push(`Forecast ${fmtMoney(p.forecast - p.approvedBudget)} over budget`); }
-    const spent = p.actual / p.approvedBudget;
-    if(p.actual > 0 && spent > pct/100 + BUDGET_SLACK){ bump('amber'); reasons.push(`Spend at ${Math.round(spent*100)}% of budget with ${pct}% complete`); }
+  const b = budgetInfo(p);
+  if(b.variancePct !== null){
+    if(b.variancePct > 20){ bump('red'); reasons.push(`Forecast ${b.variancePct}% over approved budget`); }
+    else if(b.variancePct > 10){ bump('amber'); reasons.push(`Forecast ${b.variancePct}% over approved budget`); }
+    if(b.actual > 0 && b.burnPct > 30 && b.burnPct > p.percent + 25){ bump('amber'); reasons.push(`Spent ${b.burnPct}% of budget at ${p.percent}% complete`); }
   }
   return {level, reasons};
 }
 
-// Full health: own data, plus any upstream dependency that is not on track.
+// Status of one cross-project dependency: p waits on dep.on
+function depStatus(p, dep){
+  const u = getProject(dep.on);
+  const need = dep.neededBy || p.dueDate;
+  if(!u) return {key:'gone', level:'', label:'Removed', text:'That project was deleted'};
+  if(isComplete(u)) return {key:'done', level:'green', label:'Delivered', text:'Delivered'};
+  if(need && daysUntil(need) < 0) return {key:'late', level:'red', label:'Late', text:`not delivered; was needed by ${fmtDate(need)}`};
+  const ub = baseHealth(u);
+  if(ub.level === 'red') return {key:'risk', level:'amber', label:'At risk', text:`it is off track (${ub.reasons[0]})`};
+  if(need && u.dueDate && u.dueDate > need) return {key:'risk', level:'amber', label:'At risk', text:`due ${fmtDate(u.dueDate)}, after the needed-by date ${fmtDate(need)}`};
+  if(ub.level === 'amber') return {key:'watch', level:'', label:'Watch', text:'upstream project is at risk'};
+  return {key:'ok', level:'green', label:'On track', text:'on track'};
+}
+
+// Calculated health = own data + cross-project dependencies. Explains *why*.
 function healthInfo(p){
-  const core = healthCore(p);
-  if(isComplete(p)) return core;
-  let level = core.level; const reasons = [...core.reasons];
-  p.dependsOn.forEach(id => {
-    const up = getProject(id);
-    if(!up || isComplete(up)) return;
-    const lvl = up.healthOverride || healthCore(up).level;   // one level deep, so cycles cannot loop
-    if(lvl !== 'green'){
-      if(HEALTH_RANK['amber'] < HEALTH_RANK[level]) level = 'amber';
-      reasons.push(`Depends on ${up.name} (${HEALTH_LABEL[lvl].toLowerCase()})`);
-    }
+  const base = baseHealth(p);
+  if(isComplete(p)) return base;
+  let level = base.level; const reasons = [...base.reasons];
+  p.deps.forEach(d => {
+    const st = depStatus(p, d), u = getProject(d.on);
+    if(st.key === 'late'){ level = 'red'; reasons.push(`Waiting on "${u.name}": ${st.text}`); }
+    else if(st.key === 'risk'){ if(level === 'green') level = 'amber'; reasons.push(`Waiting on "${u.name}": ${st.text}`); }
   });
-  return {level, reasons: reasons.length ? reasons : ['No flags']};
+  if(!reasons.length) reasons.push('No flags');
+  return {level, reasons};
 }
 const effHealth = p => p.healthOverride || healthInfo(p).level;
 
-// Data gaps: things a PMO should not have to discover in a meeting.
-function dataFlags(p){
-  const f = [];
-  if(isComplete(p)) return f;
-  if(!p.owner) f.push('No owner');
-  if(!p.tasks.length) f.push('No plan (no tasks)');
-  const last = [...p.updates].sort((a,b) => b.date.localeCompare(a.date))[0];
-  if(!last) f.push('No update yet');
-  else if(daysUntil(last.date) < -STALE_DAYS) f.push(`No update in ${-daysUntil(last.date)} days`);
-  return f;
+function lastUpdateDate(p){
+  const ds = p.updates.map(u => u.date).filter(Boolean).sort();
+  return ds.length ? ds[ds.length - 1] : '';
 }
-
-// Week-over-week trend from the saved daily readings.
-function trendInfo(p){
-  if(isComplete(p)) return null;
-  const prior = [...p.history].filter(x => x.date <= addDays(-7) && x.health !== 'complete').pop();
-  if(!prior) return null;
-  const diff = HEALTH_RANK[prior.health] - HEALTH_RANK[effHealth(p)];
-  if(diff > 0) return {arrow:'▼', text:`worse than 7 days ago (was ${HEALTH_LABEL[prior.health]})`, cls:'txt-red'};
-  if(diff < 0) return {arrow:'▲', text:`better than 7 days ago (was ${HEALTH_LABEL[prior.health]})`, cls:'txt-green'};
-  return {arrow:'→', text:`unchanged over 7 days`, cls:'muted'};
+// Missing or stale data. Separate from health so a "green" with no data can't hide.
+function dataGaps(p){
+  if(isComplete(p)) return [];
+  const g = [];
+  if(!String(p.owner || '').trim()) g.push('No project owner');
+  if(!p.tasks.length) g.push('No plan (no tasks or milestones)');
+  if(!p.dueDate) g.push('No due date');
+  const last = lastUpdateDate(p);
+  const since = last ? -daysUntil(last) : (p.startDate ? -daysUntil(p.startDate) : null);
+  if(since !== null && since > S().staleDays) g.push(last ? `No update in ${since} days` : `No status update since start (${since} days)`);
+  if(p.healthOverride){
+    if(!String(p.overrideReason || '').trim()) g.push('Health override has no reason recorded');
+    else if(p.overrideDate && -daysUntil(p.overrideDate) > S().overrideReviewDays) g.push(`Health override is ${-daysUntil(p.overrideDate)} days old; review it`);
+  }
+  return g;
 }
-
-// Open decisions across the portfolio, oldest first.
-function pendingDecisions(){
-  const out = [];
-  state.projects.forEach(p => p.raid.forEach(r => {
-    if(r.type === 'Decision' && r.status === 'Open') out.push({p, r, age: -daysUntil(r.date)});
-  }));
-  return out.sort((a,b) => b.age - a.age);
-}
-
-// Load by owner across active projects.
-function ownerLoad(){
-  const map = {};
-  state.projects.filter(p => !isComplete(p) && p.owner.trim()).forEach(p => {
-    const o = p.owner.trim();
-    map[o] ||= {owner:o, projects:0, openTasks:0, overdue:0, budget:0};
-    const m = map[o];
-    m.projects++;
-    m.openTasks += p.tasks.filter(t => !t.done).length;
-    m.overdue += p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) < 0).length;
-    m.budget += p.approvedBudget;
-  });
-  return Object.values(map).sort((a,b) => b.projects - a.projects || a.owner.localeCompare(b.owner));
-}
-const activeCountFor = owner => state.projects.filter(p => !isComplete(p) && p.owner.trim() === owner.trim()).length;
 
 function intakeScore(r){
-  // Value 30%, urgency 20%, strategic fit 30%, low effort 20% → 0-100
+  // Value 30%, urgency 20%, strategic alignment 30%, low effort 20% → 0-100
   const raw = r.value*0.3 + r.urgency*0.2 + r.alignment*0.3 + (6 - r.effort)*0.2;
   return Math.round((raw - 1) / 4 * 100);
 }
 
+function committedFTE(){ return activeProjects().reduce((n, p) => n + num(p.fte), 0); }
+const sameOwner = (a, b) => String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
+function capacityCheck(addFte, owner){
+  const committed = committedFTE(), cap = num(S().capacityFTE), after = committed + num(addFte);
+  const ownerCount = owner && owner.trim() ? activeProjects().filter(p => sameOwner(p.owner, owner)).length : 0;
+  return {committed, cap, after, over: cap > 0 && after > cap, ownerCount, ownerOver: !!(owner && owner.trim()) && ownerCount + 1 > num(S().maxPerOwner)};
+}
+
+function healthPill(level, extra = ''){
+  return `<span class="pill ${level}"><span class="dot"></span>${HEALTH_LABEL[level]}${extra}</span>`;
+}
 function healthBadge(p){
   if(isComplete(p)) return `<span class="pill blue">Complete</span>`;
-  const h = effHealth(p);
-  const auto = healthInfo(p).level;
-  const label = p.healthOverride ? `Manual · auto ${HEALTH_LABEL[auto].toLowerCase()}` : HEALTH_LABEL[h];
-  return `<span class="pill ${h}"><span class="dot"></span>${label}</span>`;
+  if(!p.healthOverride) return healthPill(healthInfo(p).level);
+  const calc = healthInfo(p).level;
+  return `${healthPill(p.healthOverride, ' · manual')}<span class="pill ghost" title="Calculated health">Calc: ${HEALTH_LABEL[calc]}</span>`;
 }
 function dueLabel(p){
   if(isComplete(p)) return 'Done';
@@ -439,31 +579,40 @@ function dueLabel(p){
   if(d === 0) return 'Due today';
   return `Due ${fmtDate(p.dueDate)} (${d}d)`;
 }
-function trendHtml(p){
-  const t = trendInfo(p);
-  return t ? `<span class="${t.cls}">${t.arrow} ${t.text}</span>` : '<span class="muted">Trend: not enough history yet</span>';
-}
 
 /* ============ Views ============ */
 function render(){
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.view === ui.view));
-  if(ui.view === 'portfolio') renderPortfolio();
-  else if(ui.view === 'dashboard') renderDashboard();
-  else if(ui.view === 'intake') renderIntake();
-  else renderReport();
+  ({portfolio:renderPortfolio, intake:renderIntake, deps:renderDeps, capacity:renderCapacity, report:renderReport, activity:renderActivity}[ui.view] || renderPortfolio)();
+  renderChrome();
+}
+function renderChrome(){
+  const u = currentUser();
+  $('#userBtn').textContent = u ? `👤 ${u}` : '👤 Set your name';
+  $('#shareBtn').textContent = share.handle ? (share.connected ? `✓ Shared: ${share.name}` : 'Reconnect shared file') : 'Team sharing';
+  $('#shareBtn').classList.toggle('on-share', !!(share.handle && share.connected));
+  const m = state.meta || {};
+  $('#footer').innerHTML = share.handle && share.connected
+    ? `Synced to shared file <strong>${esc(share.name)}</strong>${m.savedAt ? ` · last saved ${esc(fmtStamp(m.savedAt))}${m.savedBy ? ' by ' + esc(m.savedBy) : ''}` : ''}. Sample data is fictional.`
+    : 'Sample data is fictional. Your data is saved in this browser. Use Team sharing to work from a shared file, or Export to back it up.';
 }
 
 function renderPortfolio(){
-  const active = state.projects.filter(p => !isComplete(p));
+  const active = activeProjects();
   const count = l => active.filter(p => effHealth(p) === l).length;
   const overdueTasks = active.reduce((n,p) => n + p.tasks.filter(t => !t.done && daysUntil(t.due) < 0).length, 0);
-  const gaps = active.filter(p => dataFlags(p).length).length;
+  const openHigh = active.reduce((n,p) => n + p.raid.filter(r => r.status==='Open' && r.severity==='High' && ['Risk','Issue'].includes(r.type)).length, 0);
+  const withGaps = active.filter(p => dataGaps(p).length).length;
+  const committed = committedFTE(), cap = num(S().capacityFTE);
+  const capPct = cap ? Math.round(committed / cap * 100) : 0;
 
   let list = state.projects.filter(p => {
     if(ui.search && !(`${p.name} ${p.owner} ${p.sponsor}`.toLowerCase().includes(ui.search.toLowerCase()))) return false;
     if(ui.health === 'active') return !isComplete(p);
     if(ui.health === 'complete') return isComplete(p);
     if(ui.health === 'all') return true;
+    if(ui.health === 'gaps') return dataGaps(p).length > 0;
+    if(ui.health === 'override') return !isComplete(p) && !!p.healthOverride;
     return !isComplete(p) && effHealth(p) === ui.health;
   });
   const sorters = {
@@ -475,21 +624,22 @@ function renderPortfolio(){
   list.sort(sorters[ui.sort]);
 
   $('#main').innerHTML = `
-    <div class="view-head"><div class="grow"><h2>Portfolio</h2><div class="muted small">All projects at a glance. Health is calculated from dates, tasks, risks, issues, budget and dependencies.</div></div>
+    <div class="view-head"><div class="grow"><h2>Portfolio</h2><div class="muted small">All projects at a glance. Health is calculated from dates, tasks, the log, budget and dependencies. Manual overrides always show the calculated health next to them.</div></div>
       <button class="btn primary" data-action="new-project">+ New project</button></div>
     <div class="kpis">
       <div class="kpi"><div class="n">${active.length}</div><div class="l">Active projects</div></div>
       <div class="kpi g"><div class="n">${count('green')}</div><div class="l">On track</div></div>
       <div class="kpi a"><div class="n">${count('amber')}</div><div class="l">At risk</div></div>
       <div class="kpi r"><div class="n">${count('red')}</div><div class="l">Off track</div></div>
-      <div class="kpi"><div class="n">${pendingDecisions().length}</div><div class="l">Decisions pending</div></div>
       <div class="kpi"><div class="n">${overdueTasks}</div><div class="l">Overdue tasks</div></div>
-      <div class="kpi a"><div class="n">${gaps}</div><div class="l">Projects with data gaps</div></div>
+      <div class="kpi"><div class="n">${openHigh}</div><div class="l">Open high-severity items</div></div>
+      <div class="kpi ${withGaps?'a':''}"><div class="n">${withGaps}</div><div class="l">Projects with data gaps</div></div>
+      <div class="kpi ${capPct>100?'r':capPct>=90?'a':''}"><div class="n">${capPct}%</div><div class="l">Capacity used (${fte(committed)}/${fte(cap)} FTE)</div></div>
     </div>
     <div class="filters">
       <input id="search" type="search" placeholder="Search project, owner or sponsor" value="${esc(ui.search)}">
       <select id="healthFilter">
-        ${[['active','Active projects'],['red','Off track'],['amber','At risk'],['green','On track'],['complete','Completed'],['all','All projects']]
+        ${[['active','Active projects'],['red','Off track'],['amber','At risk'],['green','On track'],['gaps','Missing data'],['override','Manual health overrides'],['complete','Completed'],['all','All projects']]
           .map(([v,l]) => `<option value="${v}" ${ui.health===v?'selected':''}>${l}</option>`).join('')}
       </select>
       <select id="sortBy">
@@ -505,98 +655,47 @@ function projectCard(p){
   const issues = p.raid.filter(r => r.type==='Issue' && r.status==='Open').length;
   const overdue = p.tasks.filter(t => !t.done && daysUntil(t.due) < 0).length;
   const late = !isComplete(p) && daysUntil(p.dueDate) < 0;
-  const gaps = dataFlags(p);
-  const t = trendInfo(p);
+  const gaps = dataGaps(p);
+  const depIssues = isComplete(p) ? [] : p.deps.map(d => depStatus(p, d)).filter(s => s.key === 'risk' || s.key === 'late');
+  const b = budgetInfo(p);
+  const extra = [];
+  if(gaps.length) extra.push(`<span class="txt-amber">⚠ ${plural(gaps.length,'data gap')}: ${esc(gaps.map(g => g.split(' (')[0].toLowerCase()).join(', '))}</span>`);
+  if(depIssues.length) extra.push(`<span class="${depIssues.some(s=>s.key==='late')?'txt-red':'txt-amber'}">⛓ ${plural(depIssues.length,'dependency','dependencies')} at risk</span>`);
+  else if(p.deps.length && !isComplete(p)) extra.push(`<span>⛓ Waits on ${plural(p.deps.length,'project')}</span>`);
+  if(!isComplete(p) && b.variancePct !== null && b.variancePct > 10) extra.push(`<span class="${b.variancePct>20?'txt-red':'txt-amber'}">Budget forecast +${b.variancePct}%</span>`);
   return `<article class="card" tabindex="0" role="button" data-action="open" data-id="${p.id}">
-    <div class="card-top"><span class="pill">${esc(p.phase)}</span>${healthBadge(p)}</div>
+    <div class="card-top"><span class="pill">${esc(p.phase)}</span><span class="badges">${healthBadge(p)}</span></div>
     <h3>${esc(p.name)}</h3>
-    <div class="muted small">${esc(p.owner || 'Unassigned')}${p.priority!=null ? ` · Priority ${p.priority}` : ''}</div>
-    <div class="progress"><span style="width:${Math.min(100,effPercent(p))}%"></span></div>
-    <div class="card-meta"><span>${effPercent(p)}% complete${p.tasks.length ? ' (from tasks)' : ''}</span><span class="${late?'txt-red':''}">${dueLabel(p)}</span></div>
-    ${t ? `<div class="small ${t.cls}">${t.arrow} ${t.text.split(' (')[0]}</div>` : ''}
-    <div class="card-flags">${risks} open risk${risks===1?'':'s'} · ${issues} open issue${issues===1?'':'s'} · <span class="${overdue?'txt-red':''}">${overdue} overdue task${overdue===1?'':'s'}</span></div>
-    ${gaps.length ? `<div class="gap-flag">Data gaps: ${gaps.map(esc).join(' · ')}</div>` : ''}
-  </article>`;
-}
-
-function renderDashboard(){
-  const active = state.projects.filter(p => !isComplete(p));
-  const decisions = pendingDecisions();
-  const load = ownerLoad();
-  const budgeted = state.projects.filter(p => p.approvedBudget > 0);
-  const overBudget = budgeted.filter(p => p.forecast > p.approvedBudget).length;
-  const gaps = active.filter(p => dataFlags(p).length);
-  const dependent = state.projects.filter(p => p.dependsOn.length);
-
-  $('#main').innerHTML = `
-    <div class="view-head"><div class="grow"><h2>Dashboard</h2><div class="muted small">What leadership needs in one place: decisions waiting, load by owner, budget, dependencies and data gaps.</div></div></div>
-    <div class="kpis">
-      <div class="kpi"><div class="n">${active.length}</div><div class="l">Active projects</div></div>
-      <div class="kpi r"><div class="n">${active.filter(p => effHealth(p)==='red').length}</div><div class="l">Off track</div></div>
-      <div class="kpi a"><div class="n">${active.filter(p => effHealth(p)==='amber').length}</div><div class="l">At risk</div></div>
-      <div class="kpi"><div class="n">${decisions.length}</div><div class="l">Decisions pending</div></div>
-      <div class="kpi a"><div class="n">${overBudget}</div><div class="l">Forecast over budget</div></div>
-      <div class="kpi a"><div class="n">${gaps.length}</div><div class="l">Projects with data gaps</div></div>
+    <div class="muted small">${p.owner ? esc(p.owner) : '<span class="txt-amber">No owner</span>'}${p.priority!=null ? ` · Priority ${p.priority}` : ''}${p.fte ? ` · ${fte(p.fte)} FTE` : ''}${b.approved ? ` · ${moneyShort(b.approved)}` : ''}</div>
+    <div class="progress"><span style="width:${Math.min(100,p.percent)}%"></span></div>
+    <div class="card-meta"><span>${p.percent}% complete</span><span class="${late?'txt-red':''}">${dueLabel(p)}</span></div>
+    <div class="card-flags">
+      <span>${plural(risks,'open risk')} · ${plural(issues,'open issue')} · <span class="${overdue?'txt-red':''}">${plural(overdue,'overdue task')}</span></span>
+      ${extra.join('')}
     </div>
-
-    <div class="section-title">Decisions waiting on someone</div>
-    ${decisions.length ? `<div class="scroll"><table class="tbl"><tr><th>Decision</th><th>Project</th><th>Who decides</th><th>Waiting</th><th>Impact of delay</th></tr>
-      ${decisions.map(({p,r,age}) => `<tr><td>${esc(r.title)}</td><td>${esc(p.name)}</td><td>${esc(r.owner||'Unassigned')}</td>
-        <td class="${age>=14?'txt-red':''}">${age} day${age===1?'':'s'}</td><td>${esc(r.impact||'Not stated')}</td></tr>`).join('')}
-      </table></div>` : `<div class="empty">No decisions waiting.</div>`}
-
-    <div class="section-title">Load by owner (active projects)</div>
-    ${load.length ? `<div class="scroll"><table class="tbl"><tr><th>Owner</th><th>Active projects</th><th>Open tasks</th><th>Overdue tasks</th><th>Approved budget</th></tr>
-      ${load.map(m => `<tr><td>${esc(m.owner)}</td><td class="${m.projects>=OWNER_CAPACITY?'txt-red':''}">${m.projects}${m.projects>=OWNER_CAPACITY?' · over capacity':''}</td>
-        <td>${m.openTasks}</td><td class="${m.overdue?'txt-red':''}">${m.overdue}</td><td>${fmtMoney(m.budget)}</td></tr>`).join('')}
-      </table></div>` : `<div class="empty">No owners assigned to active projects.</div>`}
-
-    <div class="section-title">Budget</div>
-    ${budgeted.length ? `<div class="scroll"><table class="tbl"><tr><th>Project</th><th>Approved</th><th>Actual</th><th>Forecast</th><th>Spent vs complete</th></tr>
-      ${budgeted.map(p => { const spent = Math.round(p.actual/p.approvedBudget*100); const over = p.forecast > p.approvedBudget;
-        return `<tr><td>${esc(p.name)}</td><td>${fmtMoney(p.approvedBudget)}</td><td>${fmtMoney(p.actual)}</td>
-        <td class="${over?'txt-red':''}">${fmtMoney(p.forecast)}${over?' · over':''}</td><td>${spent}% spent · ${effPercent(p)}% complete</td></tr>`; }).join('')}
-      </table></div>` : `<div class="empty">No budgets recorded yet. Add an approved budget on a project to track it here.</div>`}
-
-    <div class="section-title">Dependencies</div>
-    ${dependent.length ? `<div class="list">${dependent.map(p => `<div class="box small"><b>${esc(p.name)}</b> depends on
-      ${p.dependsOn.map(id => { const up = getProject(id); return up ? `${esc(up.name)} (${HEALTH_LABEL[effHealth(up)].toLowerCase()})` : 'a removed project'; }).join(', ')}</div>`).join('')}</div>`
-      : `<div class="empty">No dependencies recorded.</div>`}
-
-    <div class="section-title">Data gaps</div>
-    ${gaps.length ? `<div class="list">${gaps.map(p => `<div class="box small"><b>${esc(p.name)}</b>: <span class="gap-flag">${dataFlags(p).map(esc).join(' · ')}</span></div>`).join('')}</div>`
-      : `<div class="empty">No data gaps. Every active project has an owner, a plan and a recent update.</div>`}`;
+  </article>`;
 }
 
 function renderIntake(){
   const opts = (name, label) => `<div class="field"><label for="in_${name}">${label}</label><select id="in_${name}">${[1,2,3,4,5].map(n => `<option ${n===3?'selected':''}>${n}</option>`).join('')}</select></div>`;
   const reqs = [...state.intake].sort((a,b) => (a.status==='New'?0:1) - (b.status==='New'?0:1) || intakeScore(b) - intakeScore(a));
+  const committed = committedFTE(), cap = num(S().capacityFTE);
   $('#main').innerHTML = `
-    <div class="view-head"><div class="grow"><h2>Intake</h2><div class="muted small">The front door for new work. Requests are scored so the highest-value work rises to the top, then approved into projects with a record of who approved and why.</div></div></div>
+    <div class="view-head"><div class="grow"><h2>Intake</h2><div class="muted small">The front door for new work. Requests are scored so the highest-value work rises to the top. Approving records who approved, why, and checks team capacity first.</div></div>
+      <span class="pill ${committed>cap?'red':committed/cap>=.9?'amber':'green'}">Capacity: ${fte(committed)} of ${fte(cap)} FTE committed</span></div>
     <div class="two-col">
-      <div>
-        <div class="box">
-          <h3>Submit a request</h3>
-          <div class="field"><label for="in_title">Request title</label><input id="in_title" type="text" placeholder="e.g. Carrier invoice audit"></div>
-          <div class="field-row">
-            <div class="field"><label for="in_requester">Requested by</label><input id="in_requester" type="text"></div>
-            <div class="field"><label for="in_owner">Proposed owner</label><input id="in_owner" type="text"></div>
-          </div>
-          <div class="field"><label for="in_notes">What problem does it solve?</label><textarea id="in_notes" rows="3"></textarea></div>
-          <div class="field-row">${opts('value','Business value (1–5)')}${opts('urgency','Urgency (1–5)')}</div>
-          <div class="field-row">${opts('alignment','Strategic fit (1–5)')}${opts('effort','Effort (1 low – 5 high)')}</div>
-          <button class="btn primary" data-action="add-intake">Submit request</button>
+      <div class="box">
+        <h3>Submit a request</h3>
+        <div class="field"><label for="in_title">Request title</label><input id="in_title" type="text" placeholder="e.g. Carrier invoice audit"></div>
+        <div class="field"><label for="in_requester">Requested by (team or person)</label><input id="in_requester" type="text"></div>
+        <div class="field"><label for="in_notes">What problem does it solve?</label><textarea id="in_notes" rows="3"></textarea></div>
+        <div class="field-row">${opts('value','Business value (1–5)')}${opts('urgency','Urgency (1–5)')}</div>
+        <div class="field-row">${opts('alignment','Strategic fit (1–5)')}${opts('effort','Effort (1 low – 5 high)')}</div>
+        <div class="field-row">
+          <div class="field"><label for="in_fte">Estimated team size (FTE)</label><input id="in_fte" type="number" min="0" step="0.5" placeholder="e.g. 1.5"></div>
+          <div class="field"><label for="in_cost">Estimated cost ($)</label><input id="in_cost" type="number" min="0" step="1000" placeholder="e.g. 50000"></div>
         </div>
-        <div class="box" style="margin-top:12px">
-          <h3>How requests are scored</h3>
-          <div class="rubric">
-            <div><b>Business value:</b> 5 = moves a top goal or removes major cost or risk; 1 = nice to have.</div>
-            <div><b>Urgency:</b> 5 = customer-facing, regulatory or losing money this month; 1 = no date.</div>
-            <div><b>Strategic fit:</b> 5 = on the stated priority list; 1 = unrelated to it.</div>
-            <div><b>Effort:</b> 1 = under a week; 3 = about a month; 5 = more than a quarter. Higher effort lowers the score.</div>
-            <div>Score = value 30%, fit 30%, urgency 20%, low effort 20%, scaled to 0–100. Rate every request against the same definitions.</div>
-          </div>
-        </div>
+        <button class="btn primary" data-action="add-intake">Submit request</button>
       </div>
       <div class="list">
         ${reqs.length ? reqs.map(r => `
@@ -605,97 +704,185 @@ function renderIntake(){
             <div class="req-body">
               <div class="card-top"><h4>${esc(r.title)}</h4>
                 <span class="pill ${r.status==='Approved'?'green':r.status==='Declined'?'red':'blue'}">${esc(r.status)}</span></div>
-              <div class="muted small">${esc(r.requester || '—')} · proposed owner ${esc(r.owner || '—')} · submitted ${fmtDate(r.created)}</div>
+              <div class="muted small">${esc(r.requester || '—')} · submitted ${fmtDate(r.created)}</div>
               ${r.notes ? `<div class="small" style="margin-top:6px">${esc(r.notes)}</div>` : ''}
-              <div class="muted small" style="margin-top:6px">Value ${r.value} · Urgency ${r.urgency} · Fit ${r.alignment} · Effort ${r.effort}</div>
-              ${r.approval ? `<div class="small" style="margin-top:6px">Approved by ${esc(r.approval.by)} on ${fmtDate(r.approval.date)} · ${esc(r.approval.capacity)}</div>` : ''}
-              ${ui.approveId === r.id ? approveForm(r) : `<div class="req-actions">
-                ${r.status==='New' ? `<button class="btn sm primary" data-action="review" data-id="${r.id}">Review & approve</button>
-                  <button class="btn sm" data-action="decline" data-id="${r.id}">Decline</button>` : ''}
+              <div class="muted small" style="margin-top:6px">Value ${r.value} · Urgency ${r.urgency} · Fit ${r.alignment} · Effort ${r.effort}${r.estFte ? ` · ${fte(r.estFte)} FTE` : ''}${r.estCost ? ` · est. ${money(r.estCost)}` : ''}</div>
+              ${r.decision ? `<div class="decision"><strong>${esc(r.status)}</strong> by ${esc(r.decision.by)} on ${fmtDate(r.decision.date)}: ${esc(r.decision.reason)}${r.decision.overCapacity ? ' <span class="pill amber">approved over capacity</span>' : ''}</div>`
+                : r.status !== 'New' ? `<div class="decision muted">No approval record (decided before approvals were tracked)</div>` : ''}
+              <div class="req-actions">
+                ${r.status==='New' ? `<button class="btn sm primary" data-action="approve" data-id="${r.id}">Approve…</button>
+                  <button class="btn sm" data-action="decline" data-id="${r.id}">Decline…</button>` : ''}
                 ${r.status==='Approved' && getProject(r.projectId) ? `<button class="btn sm" data-action="open" data-id="${r.projectId}">Open project</button>` : ''}
                 <button class="btn sm danger" data-action="del-intake" data-id="${r.id}">Delete</button>
-              </div>`}
+              </div>
             </div>
           </div>`).join('') : `<div class="empty">No requests yet.</div>`}
       </div>
     </div>`;
 }
 
-function capacityText(owner){
-  if(!owner.trim()) return 'Enter an owner to check capacity';
-  const n = activeCountFor(owner);
-  return n >= OWNER_CAPACITY
-    ? `Over capacity: ${owner.trim()} already has ${n} active projects`
-    : `OK: ${owner.trim()} has ${n} active project${n===1?'':'s'}`;
+function allDepLinks(){
+  const links = [];
+  state.projects.forEach(p => p.deps.forEach(d => links.push({p, d, u:getProject(d.on), st:depStatus(p, d)})));
+  const order = {late:0, risk:1, watch:2, ok:3, gone:4, done:5};
+  return links.sort((a,b) => (isComplete(a.p) - isComplete(b.p)) || order[a.st.key] - order[b.st.key]);
 }
-function approveForm(r){
-  return `<div class="approve-form">
-    <div class="field-row">
-      <div class="field"><label for="ap_owner">Project owner</label><input id="ap_owner" type="text" value="${esc(r.owner)}"></div>
-      <div class="field"><label for="ap_by">Approved by</label><input id="ap_by" type="text"></div>
+function renderDeps(){
+  const links = allDepLinks().filter(l => !isComplete(l.p));
+  const atRisk = links.filter(l => l.st.key === 'risk' || l.st.key === 'late');
+  const counts = {};
+  links.forEach(l => { if(l.u && !isComplete(l.u)) counts[l.u.id] = (counts[l.u.id] || 0) + 1; });
+  const hubs = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,3).map(([id, n]) => ({p:getProject(id), n}));
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Dependencies</h2><div class="muted small">Where one project is waiting on another. A dependency is at risk when the project it waits on is off track or due after the date it's needed. Add dependencies from a project's Dependencies tab.</div></div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">${links.length}</div><div class="l">Active dependencies</div></div>
+      <div class="kpi ${atRisk.length?'a':'g'}"><div class="n">${atRisk.length}</div><div class="l">At risk or late</div></div>
+      <div class="kpi"><div class="n">${hubs.length ? hubs[0].n : 0}</div><div class="l">Most projects waiting on one project</div></div>
     </div>
-    <div class="field"><label for="ap_reason">Why approved</label><textarea id="ap_reason" rows="2"></textarea></div>
-    <div class="small muted" style="margin-bottom:10px">Capacity check: <span id="capText">${esc(capacityText(r.owner || ''))}</span></div>
-    <div class="req-actions">
-      <button class="btn sm primary" data-action="confirm-approve" data-id="${r.id}">Confirm approval</button>
-      <button class="btn sm" data-action="cancel-approve">Cancel</button>
-    </div></div>`;
+    ${hubs.length ? `<div class="box" style="margin-bottom:14px"><h3>Watch these: other projects depend on them</h3><div class="list">${hubs.map(h => `
+      <div class="row-item"><div class="t"><button class="linkish" data-action="open" data-id="${h.p.id}">${esc(h.p.name)}</button>
+      <div class="muted small">${plural(h.n,'project')} waiting · ${esc(h.p.owner || 'No owner')} · ${dueLabel(h.p)}</div></div>${healthBadge(h.p)}</div>`).join('')}</div></div>` : ''}
+    ${links.length ? `<div class="table-wrap"><table class="t">
+      <thead><tr><th>Project</th><th>Waits on</th><th>Needed by</th><th>Upstream due</th><th>Status</th></tr></thead>
+      <tbody>${links.map(l => `<tr>
+        <td><button class="linkish" data-action="open" data-id="${l.p.id}">${esc(l.p.name)}</button>${l.d.note ? `<div class="muted small">${esc(l.d.note)}</div>` : ''}</td>
+        <td>${l.u ? `<button class="linkish" data-action="open" data-id="${l.u.id}">${esc(l.u.name)}</button><div class="muted small">${esc(l.u.owner || 'No owner')}</div>` : '<span class="muted">Deleted project</span>'}</td>
+        <td class="nowrap">${fmtDate(l.d.neededBy || l.p.dueDate)}${l.d.neededBy ? '' : '<div class="muted small">project due date</div>'}</td>
+        <td class="nowrap">${l.u ? fmtDate(l.u.dueDate) : '—'}</td>
+        <td><span class="pill ${l.st.level}">${l.st.label}</span><div class="muted small">${esc(l.st.text)}</div></td>
+      </tr>`).join('')}</tbody></table></div>` : `<div class="empty">No dependencies yet. Open a project and use its Dependencies tab to link it to the projects it waits on.</div>`}`;
+}
+
+function renderCapacity(){
+  const active = activeProjects();
+  const committed = committedFTE(), cap = num(S().capacityFTE), pct = cap ? Math.round(committed/cap*100) : 0;
+  const barColor = pct > 100 ? 'var(--red)' : pct >= 90 ? 'var(--amber)' : 'var(--green)';
+  const owners = {};
+  active.forEach(p => { const k = String(p.owner || '').trim() || '—'; (owners[k] ||= {name:k, projects:[], fte:0}); owners[k].projects.push(p); owners[k].fte += num(p.fte); });
+  const ownerRows = Object.values(owners).sort((a,b) => (a.name==='—') - (b.name==='—') || b.projects.length - a.projects.length);
+  const noFte = active.filter(p => !num(p.fte));
+  const budgetRows = state.projects.filter(p => num(p.budget.approved) || num(p.budget.actual) || num(p.budget.forecast));
+  const T = budgetRows.filter(p => !isComplete(p)).reduce((t, p) => { const b = budgetInfo(p); t.a += b.approved; t.s += b.actual; t.f += b.forecast; return t; }, {a:0, s:0, f:0});
+  const tv = T.a ? Math.round((T.f - T.a) / T.a * 100) : 0;
+  const varCell = b => b.variancePct === null ? '—' : b.variance === 0 ? '<span class="muted">On budget</span>' : `<span class="${b.variancePct>20?'txt-red':b.variancePct>10?'txt-amber':''}">${b.variance >= 0 ? '+' : '−'}${money(Math.abs(b.variance))} (${b.variancePct >= 0 ? '+' : ''}${b.variancePct}%)</span>`;
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Capacity &amp; Budget</h2><div class="muted small">How much of the team is committed, who is overloaded, and where money is going. These settings drive the capacity check on intake approvals.</div></div></div>
+    <div class="two-col">
+      <div class="stack">
+        <div class="box">
+          <h3>Team capacity</h3>
+          <div class="big-num">${fte(committed)} <span class="muted" style="font-size:16px;font-weight:600">of ${fte(cap)} FTE</span></div>
+          <div class="bar"><span style="width:${Math.min(100,pct)}%;background:${barColor}"></span></div>
+          <div class="small ${pct>100?'txt-red':pct>=90?'txt-amber':'muted'}">${pct}% committed${pct>100 ? ` · over by ${fte(committed-cap)} FTE` : ` · ${fte(Math.max(0,cap-committed))} FTE available`}</div>
+          ${noFte.length ? `<div class="small txt-amber" style="margin-top:8px">${plural(noFte.length,'active project')} ha${noFte.length===1?'s':'ve'} no team size, so capacity may be understated: ${esc(noFte.map(p=>p.name).join(', '))}</div>` : ''}
+        </div>
+        <div class="box">
+          <h3>Settings</h3>
+          <div class="field"><label for="set_capacityFTE">Team capacity (FTE available for projects)</label><input id="set_capacityFTE" data-setting="capacityFTE" type="number" min="0" step="0.5" value="${num(S().capacityFTE)}"></div>
+          <div class="field"><label for="set_maxPerOwner">Max active projects per owner</label><input id="set_maxPerOwner" data-setting="maxPerOwner" type="number" min="1" step="1" value="${num(S().maxPerOwner)}"></div>
+          <div class="field"><label for="set_staleDays">Flag "no recent update" after (days)</label><input id="set_staleDays" data-setting="staleDays" type="number" min="1" step="1" value="${num(S().staleDays)}"></div>
+          <div class="field"><label for="set_overrideReviewDays">Ask to review a health override after (days)</label><input id="set_overrideReviewDays" data-setting="overrideReviewDays" type="number" min="1" step="1" value="${num(S().overrideReviewDays)}"></div>
+        </div>
+      </div>
+      <div class="stack">
+        <div>
+          <div class="section-title">Load by owner</div>
+          <div class="table-wrap"><table class="t">
+            <thead><tr><th>Owner</th><th class="num">Active projects</th><th class="num">FTE</th><th>Projects</th></tr></thead>
+            <tbody>${ownerRows.length ? ownerRows.map(o => {
+              const over = o.name !== '—' && o.projects.length > num(S().maxPerOwner);
+              return `<tr><td class="nowrap">${o.name==='—' ? '<span class="txt-amber">No owner</span>' : esc(o.name)}</td>
+                <td class="num"><span class="${over?'txt-red':''}">${o.projects.length}</span>${over ? ` <span class="pill red">over limit of ${num(S().maxPerOwner)}</span>` : ''}</td>
+                <td class="num">${fte(o.fte)}</td>
+                <td class="small">${o.projects.map(p => `<button class="linkish" data-action="open" data-id="${p.id}">${esc(p.name)}</button>`).join('<br>')}</td></tr>`;
+            }).join('') : `<tr><td colspan="4" class="muted">No active projects.</td></tr>`}</tbody></table></div>
+        </div>
+        <div>
+          <div class="section-title">Budget (active projects in the total)</div>
+          <div class="table-wrap"><table class="t">
+            <thead><tr><th>Project</th><th class="num">Approved</th><th class="num">Spent</th><th class="num">Forecast</th><th class="num">Variance</th><th class="num">Spent vs done</th></tr></thead>
+            <tbody>${budgetRows.length ? budgetRows.map(p => { const b = budgetInfo(p); return `<tr>
+              <td><button class="linkish" data-action="open" data-id="${p.id}">${esc(p.name)}</button>${isComplete(p) ? ' <span class="pill blue">Complete</span>' : ''}</td>
+              <td class="num">${money(b.approved)}</td><td class="num">${money(b.actual)}</td><td class="num">${money(b.forecast)}</td>
+              <td class="num">${varCell(b)}</td>
+              <td class="num">${b.burnPct === null ? '—' : `<span class="${b.burnPct > p.percent + 25 && b.burnPct > 30 && !isComplete(p) ? 'txt-amber' : ''}">${b.burnPct}% / ${p.percent}%</span>`}</td></tr>`; }).join('')
+              + `<tr class="total"><td>Active total</td><td class="num">${money(T.a)}</td><td class="num">${money(T.s)}</td><td class="num">${money(T.f)}</td><td class="num">${T.a ? `${tv>=0?'+':''}${tv}%` : '—'}</td><td></td></tr>`
+              : `<tr><td colspan="6" class="muted">No budgets entered yet. Add them on each project's Overview tab.</td></tr>`}</tbody></table></div>
+          <div class="muted small" style="margin-top:6px">Forecast over budget by more than 10% marks a project at risk, more than 20% off track. "Spent vs done" flags spending well ahead of progress.</div>
+        </div>
+      </div>
+    </div>`;
 }
 
 function buildReport(scope){
-  const list = scope === 'all' ? state.projects.filter(p => !isComplete(p)) : state.projects.filter(p => p.id === scope);
+  const list = scope === 'all' ? activeProjects() : state.projects.filter(p => p.id === scope);
   list.sort((a,b) => HEALTH_RANK[effHealth(a)] - HEALTH_RANK[effHealth(b)]);
   const L = [];
   L.push('# Weekly Status Report');
-  L.push(`Week ending ${fmtDate(weekEnding())}`);
+  L.push(`Week ending ${fmtDate(weekEnding())}${currentUser() ? ` · Prepared by ${currentUser()}` : ''}`);
   L.push('');
   if(scope === 'all'){
     const c = l => list.filter(p => effHealth(p) === l).length;
-    L.push(`**Portfolio summary:** ${list.length} active projects — ${c('green')} on track, ${c('amber')} at risk, ${c('red')} off track.`);
+    L.push(`**Portfolio summary:** ${list.length} active projects: ${c('green')} on track, ${c('amber')} at risk, ${c('red')} off track.`);
+    const committed = committedFTE(), cap = num(S().capacityFTE);
+    L.push(`**Capacity:** ${fte(committed)} of ${fte(cap)} FTE committed (${cap ? Math.round(committed/cap*100) : 0}%).`);
+    const B = list.reduce((t,p) => { const b = budgetInfo(p); t.a += b.approved; t.s += b.actual; t.f += b.forecast; return t; }, {a:0,s:0,f:0});
+    if(B.a) L.push(`**Budget:** ${money(B.a)} approved · ${money(B.s)} spent · ${money(B.f)} forecast (${B.f>=B.a?'+':''}${Math.round((B.f-B.a)/B.a*100)}%).`);
     const needs = list.filter(p => effHealth(p) !== 'green');
     if(needs.length) L.push(`**Needs attention:** ${needs.map(p => p.name).join('; ')}.`);
-    const decisions = pendingDecisions();
-    if(decisions.length){
-      L.push('**Decisions waiting:**');
-      decisions.forEach(({p,r,age}) => L.push(`- ${r.title} (${p.name}) — ${r.owner || 'unassigned'}, waiting ${age} day${age===1?'':'s'}${r.impact ? `; impact: ${r.impact}` : ''}`));
+    const overrides = list.filter(p => p.healthOverride && p.healthOverride !== healthInfo(p).level);
+    if(overrides.length) L.push(`**Manual health overrides:** ${overrides.map(p => `${p.name} (reported ${HEALTH_LABEL[p.healthOverride]}, calculated ${HEALTH_LABEL[healthInfo(p).level]})`).join('; ')}.`);
+    const deps = allDepLinks().filter(l => !isComplete(l.p) && (l.st.key === 'risk' || l.st.key === 'late'));
+    if(deps.length){
+      L.push('**Cross-project dependencies at risk:**');
+      deps.forEach(l => L.push(`- ${l.p.name} waits on ${l.u.name}: ${l.st.text}`));
     }
-    const gaps = list.filter(p => dataFlags(p).length);
-    if(gaps.length) L.push(`**Data gaps to fix:** ${gaps.map(p => `${p.name} (${dataFlags(p).join(', ')})`).join('; ')}.`);
+    const gaps = list.map(p => [p, dataGaps(p)]).filter(([,g]) => g.length);
+    if(gaps.length){
+      L.push('**Data gaps (status may be unreliable):**');
+      gaps.forEach(([p,g]) => L.push(`- ${p.name}: ${g.join('; ')}`));
+    }
     L.push('');
   }
   list.forEach(p => {
     const h = effHealth(p), info = healthInfo(p);
     L.push(`## ${p.name} — ${isComplete(p) ? 'COMPLETE' : HEALTH_LABEL[h].toUpperCase()}`);
-    L.push(`Owner: ${p.owner || 'Unassigned'} | Sponsor: ${p.sponsor || '—'} | Phase: ${p.phase} | ${effPercent(p)}% complete | ${dueLabel(p)}`);
+    L.push(`Owner: ${p.owner || 'UNASSIGNED'} | Sponsor: ${p.sponsor || '—'} | Phase: ${p.phase} | ${p.percent}% complete | ${dueLabel(p)}`);
+    if(!isComplete(p)){
+      if(p.healthOverride){
+        L.push(`**Reported health:** ${HEALTH_LABEL[p.healthOverride]} (manual override by ${p.overrideBy || 'unknown'}${p.overrideDate ? ` on ${fmtDate(p.overrideDate)}` : ''}: ${p.overrideReason || 'no reason recorded'})`);
+        L.push(`**Calculated health:** ${HEALTH_LABEL[info.level]}. ${info.reasons.join('; ')}.`);
+      } else {
+        L.push(`**Health:** ${HEALTH_LABEL[info.level]}. ${info.reasons.join('; ')}.`);
+      }
+    }
+    const b = budgetInfo(p);
+    if(b.approved) L.push(`**Budget:** ${money(b.approved)} approved · ${money(b.actual)} spent · ${money(b.forecast)} forecast${b.variancePct ? ` (${b.variancePct>0?'+':''}${b.variancePct}%)` : ''}`);
     const latest = [...p.updates].sort((a,b) => b.date.localeCompare(a.date))[0];
-    L.push(`**Latest update:** ${latest ? `${latest.text} (${fmtDate(latest.date)})` : 'No update recorded.'}`);
-    const t = trendInfo(p);
-    if(t) L.push(`**Trend:** ${t.arrow} ${t.text}.`);
-    if(h !== 'green' && !isComplete(p)) L.push(`**Why ${HEALTH_LABEL[h].toLowerCase()}:** ${info.reasons.join('; ')}.`);
-    if(p.approvedBudget > 0) L.push(`**Budget:** ${fmtMoney(p.actual)} spent of ${fmtMoney(p.approvedBudget)}; forecast ${fmtMoney(p.forecast)}.`);
+    L.push(`**Latest update:** ${latest ? `${latest.text} (${fmtDate(latest.date)}${latest.by ? ', ' + latest.by : ''})` : 'No update recorded.'}`);
+    const gaps = dataGaps(p);
+    if(gaps.length) L.push(`**Data gaps:** ${gaps.join('; ')}.`);
+    if(p.deps.length && !isComplete(p)){
+      L.push('**Waiting on:**');
+      p.deps.forEach(d => { const u = getProject(d.on), st = depStatus(p, d); L.push(`- ${u ? u.name : 'Deleted project'} (needed by ${fmtDate(d.neededBy || p.dueDate)}): ${st.label}${st.key==='ok'||st.key==='done' ? '' : ', ' + st.text}`); });
+    }
     const upcoming = p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) <= 14).sort((a,b) => a.due.localeCompare(b.due));
     if(upcoming.length){
       L.push('**Next two weeks:**');
       upcoming.forEach(t => L.push(`- ${t.title} — ${t.owner || 'unassigned'}, ${daysUntil(t.due) < 0 ? `OVERDUE (was due ${fmtDate(t.due)})` : `due ${fmtDate(t.due)}`}`));
     }
-    const open = p.raid.filter(r => r.status==='Open' && (r.type==='Risk' || r.type==='Issue'))
+    const open = p.raid.filter(r => r.status==='Open' && (['Risk','Issue'].includes(r.type)))
       .sort((a,b) => SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
     if(open.length){
-      L.push('**Open risks & issues:**');
+      L.push('**Open items to watch:**');
       open.forEach(r => L.push(`- [${r.type} · ${r.severity}] ${r.title} — ${r.owner || 'unassigned'}`));
     }
-    const pend = p.raid.filter(r => r.type==='Decision' && r.status==='Open');
-    if(pend.length){
-      L.push('**Decisions needed:**');
-      pend.forEach(r => L.push(`- ${r.title} — ${r.owner || 'unassigned'}, waiting ${-daysUntil(r.date)} days${r.impact ? `; impact: ${r.impact}` : ''}`));
-    }
-    const decided = p.raid.filter(r => r.type==='Decision' && r.status==='Closed' && daysUntil(r.date) >= -14);
-    if(decided.length){
+    const decisions = p.raid.filter(r => r.type==='Decision' && daysUntil(r.date) >= -14);
+    if(decisions.length){
       L.push('**Recent decisions:**');
-      decided.forEach(r => L.push(`- ${r.title} (${fmtDate(r.date)}, ${r.owner || '—'})`));
+      decisions.forEach(r => L.push(`- ${r.title} (${fmtDate(r.date)}, ${r.owner || '—'})`));
     }
-    const gaps = dataFlags(p);
-    if(gaps.length && !isComplete(p)) L.push(`**Data gaps:** ${gaps.join('; ')}.`);
     L.push('');
   });
   if(!list.length) L.push('_No active projects._');
@@ -705,7 +892,7 @@ function buildReport(scope){
 function renderReport(){
   if(ui.reportScope !== 'all' && !getProject(ui.reportScope)) ui.reportScope = 'all';
   $('#main').innerHTML = `
-    <div class="view-head"><div class="grow"><h2>Status Report</h2><div class="muted small">Written for you from the portfolio data. Copy it into an email or Teams post, or download it.</div></div></div>
+    <div class="view-head"><div class="grow"><h2>Status Report</h2><div class="muted small">Written for you from the portfolio data. Every project shows its calculated health and reasons, even when a manual override is in place. Copy it into an email or Teams post, or download it.</div></div></div>
     <div class="report-controls">
       <select id="reportScope">
         <option value="all">All active projects</option>
@@ -717,9 +904,40 @@ function renderReport(){
     <textarea class="big" id="reportText" readonly>${esc(buildReport(ui.reportScope))}</textarea>`;
 }
 
+function auditList(entries){
+  return entries.length ? `<div class="table-wrap">${entries.map(a => `
+    <div class="act-row"><div class="act-when">${esc(fmtStamp(a.ts))}</div>
+      <div class="act-what"><span class="who">${esc(a.user)}</span> · ${esc(a.action)}${a.project && ui.openId !== a.projectId ? ` · <span class="muted">${a.projectId && getProject(a.projectId) ? `<button class="linkish" data-action="open" data-id="${a.projectId}">${esc(a.project)}</button>` : esc(a.project)}</span>` : ''}
+      <div class="small muted">${esc(a.detail)}</div></div></div>`).join('')}</div>`
+    : `<div class="empty">No activity recorded yet.</div>`;
+}
+function filteredAudit(){
+  const q = ui.actSearch.toLowerCase();
+  return state.audit.filter(a =>
+    (ui.actProject === 'all' || (ui.actProject === 'none' ? !a.projectId : a.projectId === ui.actProject)) &&
+    (ui.actUser === 'all' || a.user === ui.actUser) &&
+    (!q || `${a.user} ${a.action} ${a.project} ${a.detail}`.toLowerCase().includes(q)));
+}
+function renderActivity(){
+  const users = [...new Set(state.audit.map(a => a.user))].sort();
+  const entries = filteredAudit();
+  $('#main').innerHTML = `
+    <div class="view-head"><div class="grow"><h2>Activity</h2><div class="muted small">Audit trail: who changed what, and when. Every edit, approval, override and log entry is recorded with the name set in the header.</div></div>
+      <button class="btn" data-action="export-audit">Download CSV</button></div>
+    ${!currentUser() ? `<div class="gaps" style="margin-bottom:12px"><strong>Set your name</strong> so your changes are attributed to you. <button class="linkish" data-action="set-user">Set it now</button></div>` : ''}
+    <div class="filters">
+      <input id="actSearch" type="search" placeholder="Search activity" value="${esc(ui.actSearch)}">
+      <select id="actProject"><option value="all">All projects</option><option value="none" ${ui.actProject==='none'?'selected':''}>Intake &amp; settings</option>
+        ${state.projects.map(p => `<option value="${p.id}" ${ui.actProject===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+      <select id="actUser"><option value="all">Everyone</option>${users.map(u => `<option ${ui.actUser===u?'selected':''}>${esc(u)}</option>`).join('')}</select>
+    </div>
+    <div id="actList">${auditList(entries.slice(0, ui.actLimit))}</div>
+    ${entries.length > ui.actLimit ? `<div style="text-align:center;margin-top:12px"><button class="btn" data-action="act-more">Show more (${entries.length - ui.actLimit} older)</button></div>` : ''}`;
+}
+
 /* ============ Project panel ============ */
 function openPanel(id, tab='overview'){
-  ui.openId = id; ui.panelTab = tab; ui.raidFilter = 'All';
+  ui.openId = id; ui.panelTab = tab; ui.raidFilter = 'All'; ui.snap = {};
   $('#overlay').hidden = false; document.body.style.overflow = 'hidden';
   renderPanel();
 }
@@ -727,40 +945,51 @@ function closePanel(){ ui.openId = null; $('#overlay').hidden = true; document.b
 
 function renderPanelHead(){
   const p = getProject(ui.openId); if(!p) return;
-  const info = healthInfo(p);
-  const t = trendInfo(p);
+  const info = healthInfo(p), gaps = dataGaps(p);
+  let health;
+  if(isComplete(p)) health = `<div class="hl"><span class="hl-l">Health</span><span class="pill blue">Complete</span></div>`;
+  else if(p.healthOverride) health = `
+    <div class="hl"><span class="hl-l">Reported</span>${healthPill(p.healthOverride)}<span class="muted">manual override${p.overrideBy ? ` by ${esc(p.overrideBy)}` : ''}${p.overrideDate ? ` on ${fmtDate(p.overrideDate)}` : ''}</span>
+      <button class="linkish" data-action="edit-override">Edit reason</button></div>
+    <div class="override-note">${p.overrideReason ? esc(p.overrideReason) : '<span class="txt-amber">No reason recorded</span>'}</div>
+    <div class="hl"><span class="hl-l">Calculated</span>${healthPill(info.level)}</div>
+    <ul class="reasons">${info.reasons.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  else health = `
+    <div class="hl"><span class="hl-l">Health</span>${healthPill(info.level)}<span class="muted">calculated</span></div>
+    <ul class="reasons">${info.reasons.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
   $('#panelHead').innerHTML = `
     <div class="row"><h2>${esc(p.name || 'Untitled project')}</h2><button class="icon-btn" data-action="close" aria-label="Close">✕</button></div>
-    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">${healthBadge(p)}<span class="pill">${esc(p.phase)}</span><span class="pill">${dueLabel(p)}</span>${t ? `<span class="pill ${t.cls}">${t.arrow} ${t.text.split(' (')[0]}</span>` : ''}</div>
-    <ul class="reasons">${info.reasons.map(r => `<li>${esc(r)}</li>`).join('')}${p.healthOverride ? `<li>Health manually set to "${HEALTH_LABEL[p.healthOverride]}" (auto calculates "${HEALTH_LABEL[info.level]}")</li>` : ''}</ul>`;
+    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><span class="pill">${esc(p.phase)}</span><span class="pill">${dueLabel(p)}</span>${p.priority!=null?`<span class="pill">Priority ${p.priority}</span>`:''}</div>
+    <div class="health-box">${health}
+      ${gaps.length ? `<div class="gaps"><strong>⚠ Data gaps</strong><ul>${gaps.map(g => `<li>${esc(g)}</li>`).join('')}</ul></div>` : ''}</div>`;
 }
 
 function renderPanel(){
   const p = getProject(ui.openId); if(!p){ closePanel(); return; }
   renderPanelHead();
   const openRaid = p.raid.filter(r => r.status==='Open').length;
-  const tabs = [['overview','Overview'],['tasks',`Tasks (${p.tasks.filter(t=>!t.done).length})`],['raid',`RAID log (${openRaid} open)`],['updates',`Updates (${p.updates.length})`]];
+  const waiting = state.projects.filter(x => x.deps.some(d => d.on === p.id)).length;
+  const history = state.audit.filter(a => a.projectId === p.id).length;
+  const tabs = [['overview','Overview'],['tasks',`Tasks (${p.tasks.filter(t=>!t.done).length})`],['raid',`RAID log (${openRaid} open)`],
+    ['deps',`Dependencies (${p.deps.length + waiting})`],['updates',`Updates (${p.updates.length})`],['history',`History (${history})`]];
   $('#panelTabs').innerHTML = tabs.map(([k,l]) => `<button class="${ui.panelTab===k?'on':''}" data-action="ptab" data-tab="${k}">${l}</button>`).join('');
   const body = $('#panelBody');
 
   if(ui.panelTab === 'overview'){
-    const deps = p.dependsOn.map(getProject).filter(Boolean);
-    const others = state.projects.filter(x => x.id !== p.id && !p.dependsOn.includes(x.id));
-    const next = p.tasks.filter(t => !t.done && t.due && daysUntil(t.due) <= 30).sort((a,b) => a.due.localeCompare(b.due)).slice(0,3);
-    const gaps = dataFlags(p);
-    const ap = p.approval;
+    const a = p.approval;
     body.innerHTML = `
-      ${gaps.length ? `<div class="approval"><b>Data gaps:</b> <span class="gap-flag">${gaps.map(esc).join(' · ')}</span></div>` : ''}
-      ${ap ? `<div class="approval">Approved by <b>${esc(ap.by)}</b> on ${fmtDate(ap.date)}<br>Why: ${esc(ap.reason || '—')}<br>${esc(ap.capacity)}</div>` : ''}
+      <div class="record"><strong>Approval</strong>${a
+        ? `Approved by <b>${esc(a.by)}</b> on ${fmtDate(a.date)}. ${esc(a.reason)}<div class="muted" style="margin-top:3px">At approval: ${fte(a.fte)} FTE requested; ${fte(a.committedBefore + a.fte)} of ${fte(a.capacity)} FTE committed afterwards.${a.overCapacity ? ' <span class="pill amber">Approved over capacity</span>' : ''}</div>`
+        : '<span class="muted">No approval record on file. Projects approved through Intake record who approved them, why, and the capacity check.</span>'}</div>
       <div class="field"><label>Project name</label><input type="text" data-field="name" value="${esc(p.name)}"></div>
       <div class="field-row">
-        <div class="field"><label>Project owner</label><input type="text" data-field="owner" value="${esc(p.owner)}"></div>
+        <div class="field"><label>Project owner</label><input type="text" data-field="owner" value="${esc(p.owner)}" placeholder="Required"></div>
         <div class="field"><label>Executive sponsor</label><input type="text" data-field="sponsor" value="${esc(p.sponsor)}"></div>
       </div>
       <div class="field-row">
         <div class="field"><label>Phase</label><select data-field="phase">${PHASES.map(x => `<option ${p.phase===x?'selected':''}>${x}</option>`).join('')}</select></div>
-        <div class="field"><label>Health</label><select data-field="healthOverride">
-          <option value="" ${!p.healthOverride?'selected':''}>Automatic</option>
+        <div class="field"><label>Health</label><select data-field="healthOverride" id="healthSelect">
+          <option value="" ${!p.healthOverride?'selected':''}>Automatic (calculated)</option>
           ${['green','amber','red'].map(h => `<option value="${h}" ${p.healthOverride===h?'selected':''}>Manual: ${HEALTH_LABEL[h]}</option>`).join('')}
         </select></div>
       </div>
@@ -768,25 +997,15 @@ function renderPanel(){
         <div class="field"><label>Start date</label><input type="date" data-field="startDate" value="${esc(p.startDate)}"></div>
         <div class="field"><label>Due date</label><input type="date" data-field="dueDate" value="${esc(p.dueDate)}"></div>
       </div>
-      ${p.tasks.length
-        ? `<div class="field"><label>Percent complete</label><div><b>${effPercent(p)}%</b> <span class="muted small">calculated from ${p.tasks.filter(t=>t.done).length} of ${p.tasks.length} tasks done</span></div></div>`
-        : `<div class="field"><label>Percent complete</label>
-        <div class="range-row"><input type="range" min="0" max="100" step="5" data-field="percent" value="${p.percent}"><strong id="pctLabel">${p.percent}%</strong></div></div>`}
-      <div class="sub">Next milestones (next 30 days)</div>
-      ${next.length ? `<div class="list">${next.map(t => `<div class="row-item"><div class="t">${esc(t.title)}<div class="muted small">${esc(t.owner||'Unassigned')} · due ${fmtDate(t.due)}</div></div></div>`).join('')}</div>` : `<div class="muted small">Nothing due in the next 30 days.</div>`}
-      <div class="sub">Budget</div>
-      <div class="field-row">
-        <div class="field"><label>Approved budget ($)</label><input type="number" min="0" data-field="approvedBudget" value="${p.approvedBudget||''}"></div>
-        <div class="field"><label>Actual spend ($)</label><input type="number" min="0" data-field="actual" value="${p.actual||''}"></div>
+      <div class="field"><label>Percent complete</label>
+        <div class="range-row"><input type="range" min="0" max="100" step="5" data-field="percent" value="${p.percent}"><strong id="pctLabel">${p.percent}%</strong></div></div>
+      <div class="field"><label>Team size (FTE)</label><input type="number" min="0" step="0.5" data-field="fte" value="${num(p.fte) || ''}" placeholder="e.g. 2"></div>
+      <div class="field-row three">
+        <div class="field"><label>Approved budget ($)</label><input type="number" min="0" step="1000" data-field="budget.approved" value="${num(p.budget.approved) || ''}"></div>
+        <div class="field"><label>Actual spend ($)</label><input type="number" min="0" step="1000" data-field="budget.actual" value="${num(p.budget.actual) || ''}"></div>
+        <div class="field"><label>Forecast at completion ($)</label><input type="number" min="0" step="1000" data-field="budget.forecast" value="${num(p.budget.forecast) || ''}"></div>
       </div>
-      <div class="field"><label>Forecast at completion ($)</label><input type="number" min="0" data-field="forecast" value="${p.forecast||''}"></div>
-      <div class="sub">Depends on</div>
-      <div class="chips">${deps.length ? deps.map(d => `<button class="chip on" data-action="del-dep" data-id="${d.id}" title="Remove dependency">${esc(d.name)} ✕</button>`).join('') : '<span class="muted small">No upstream projects</span>'}</div>
-      <div class="inline-form">
-        <select id="depSelect"><option value="">Add an upstream project…</option>${others.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select>
-        <button class="btn sm" data-action="add-dep">Add</button>
-      </div>
-      <div class="field" style="margin-top:14px"><label>Summary / scope</label><textarea rows="4" data-field="summary">${esc(p.summary)}</textarea></div>
+      <div class="field"><label>Summary / scope</label><textarea rows="4" data-field="summary">${esc(p.summary)}</textarea></div>
       <button class="btn danger" data-action="del-project">Delete project</button>`;
   }
   else if(ui.panelTab === 'tasks'){
@@ -804,129 +1023,442 @@ function renderPanel(){
           <input type="checkbox" data-action="toggle-task" data-id="${t.id}" ${t.done?'checked':''} aria-label="Done">
           <div class="t">${esc(t.title)}<div class="muted small">${esc(t.owner || 'Unassigned')} · <span class="${late?'txt-red':''}">${t.due ? (late ? 'Overdue — ' : 'Due ') + fmtDate(t.due) : 'No date'}</span></div></div>
           <button class="icon-btn" data-action="del-task" data-id="${t.id}" aria-label="Delete">✕</button></div>`;
-      }).join('') : `<div class="empty">No tasks yet. Adding tasks also sets the % complete.</div>`}</div>`;
+      }).join('') : `<div class="empty">No tasks yet. Projects without a plan are flagged as a data gap.</div>`}</div>`;
   }
   else if(ui.panelTab === 'raid'){
     const items = p.raid.filter(r => ui.raidFilter === 'All' || r.type === ui.raidFilter)
       .sort((a,b) => (a.status==='Open'?0:1) - (b.status==='Open'?0:1) || SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
     const sevClass = {High:'red', Medium:'amber', Low:''};
+    const typeCount = t => p.raid.filter(r => r.type === t).length;
     body.innerHTML = `
-      <p class="muted small" style="margin-top:0">RAID = Risks (might happen), Actions (to-dos agreed in meetings), Issues (happening now), Decisions (pending until someone makes the call).</p>
+      <p class="muted small" style="margin-top:0"><strong>RAID log</strong>: ${LOG_TYPES.map(t => `<b>${t}</b> = ${LOG_HELP[t]}`).join(' · ')}. Cross-project dependencies go in the Dependencies tab.</p>
       <div class="inline-form">
-        <select id="raidType">${RAID_TYPES.map(x => `<option>${x}</option>`).join('')}</select>
+        <select id="raidType">${LOG_TYPES.map(x => `<option>${x}</option>`).join('')}</select>
         <input type="text" id="raidTitle" placeholder="Describe it">
-        <input type="text" id="raidOwner" placeholder="Owner (decides, for decisions)" style="width:170px">
-        <input type="text" id="raidImpact" placeholder="Impact of delay (decisions)" style="flex:1;min-width:180px">
+        <input type="text" id="raidOwner" placeholder="Owner" style="width:130px">
         <select id="raidSev">${SEVERITIES.map(x => `<option ${x==='Medium'?'selected':''}>${x}</option>`).join('')}</select>
         <button class="btn primary" data-action="add-raid">Add</button>
       </div>
-      <div class="chips">${['All',...RAID_TYPES].map(x => `<button class="chip ${ui.raidFilter===x?'on':''}" data-action="raid-filter" data-f="${x}">${x}</button>`).join('')}</div>
-      <div class="list">${items.length ? items.map(r => {
-        const age = r.type==='Decision' && r.status==='Open' ? -daysUntil(r.date) : null;
-        return `<div class="row-item ${r.status==='Closed'?'done':''}">
-          <span class="pill blue">${r.type}</span>
-          <div class="t">${esc(r.title)}<div class="muted small">${esc(r.owner || 'Unassigned')} · ${fmtDate(r.date)} · <span class="pill ${sevClass[r.severity]}">${r.severity}</span>
-            ${age !== null ? ` · <span class="${age>=14?'txt-red':''}">pending ${age} day${age===1?'':'s'}</span>` : ''}
-            ${r.impact ? `<div>Impact of delay: ${esc(r.impact)}</div>` : ''}</div></div>
-          <button class="btn sm" data-action="toggle-raid" data-id="${r.id}">${r.type==='Decision' ? (r.status==='Open' ? 'Mark decided' : 'Reopen') : (r.status==='Open' ? 'Close' : 'Reopen')}</button>
+      <div class="chips">${['All',...LOG_TYPES].map(x => `<button class="chip ${ui.raidFilter===x?'on':''}" data-action="raid-filter" data-f="${x}">${x}${x!=='All' && typeCount(x) ? ` (${typeCount(x)})` : ''}</button>`).join('')}</div>
+      <div class="list">${items.length ? items.map(r => `
+        <div class="row-item ${r.status==='Closed'?'done':''}">
+          <span class="pill blue">${esc(r.type)}</span>
+          <div class="t">${esc(r.title)}<div class="muted small">${esc(r.owner || 'Unassigned')} · ${fmtDate(r.date)} · <span class="pill ${sevClass[r.severity]||''}">${esc(r.severity)}</span></div></div>
+          <button class="btn sm" data-action="toggle-raid" data-id="${r.id}">${r.status==='Open' ? 'Close' : 'Reopen'}</button>
           <button class="icon-btn" data-action="del-raid" data-id="${r.id}" aria-label="Delete">✕</button>
-        </div>`;}).join('') : `<div class="empty">Nothing logged here yet.</div>`}</div>`;
+        </div>`).join('') : `<div class="empty">Nothing logged here yet.</div>`}</div>`;
   }
-  else {
+  else if(ui.panelTab === 'deps'){
+    const waitingOn = p.deps;
+    const blocking = state.projects.filter(x => x.id !== p.id).flatMap(x => x.deps.filter(d => d.on === p.id).map(d => ({x, d})));
+    const candidates = state.projects.filter(x => x.id !== p.id && !p.deps.some(d => d.on === x.id) && !wouldCycle(p.id, x.id));
+    body.innerHTML = `
+      <div class="section-title">This project waits on</div>
+      ${candidates.length ? `<div class="inline-form">
+        <select id="depOn" style="flex:1;min-width:180px">${candidates.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select>
+        <input type="date" id="depNeed" title="Needed by (blank = this project's due date)">
+        <input type="text" id="depNote" placeholder="What do you need from it?">
+        <button class="btn primary" data-action="add-dep">Add</button>
+      </div><div class="muted small" style="margin:-6px 0 12px">Needed-by date is optional. If blank, this project's due date is used.</div>` : `<div class="muted small" style="margin-bottom:10px">No other projects can be linked (already linked, or it would create a loop).</div>`}
+      <div class="list">${waitingOn.length ? waitingOn.map(d => { const u = getProject(d.on), st = depStatus(p, d); return `
+        <div class="row-item"><div class="t">${u ? `<button class="linkish" data-action="open" data-id="${u.id}">${esc(u.name)}</button>` : 'Deleted project'}
+          <div class="muted small">Needed by ${fmtDate(d.neededBy || p.dueDate)}${u ? ` · upstream due ${fmtDate(u.dueDate)}` : ''}${d.note ? ` · ${esc(d.note)}` : ''}</div>
+          <div class="small ${st.level==='red'?'txt-red':st.level==='amber'?'txt-amber':'muted'}">${esc(st.label)}${st.key==='ok'||st.key==='done' ? '' : ': ' + esc(st.text)}</div></div>
+          <button class="icon-btn" data-action="del-dep" data-id="${d.id}" aria-label="Remove">✕</button></div>`; }).join('')
+        : `<div class="empty">Not waiting on any other project.</div>`}</div>
+      <div class="section-title">Projects waiting on this one</div>
+      <div class="list">${blocking.length ? blocking.map(({x, d}) => `
+        <div class="row-item"><div class="t"><button class="linkish" data-action="open" data-id="${x.id}">${esc(x.name)}</button>
+          <div class="muted small">Needs it by ${fmtDate(d.neededBy || x.dueDate)}${d.note ? ` · ${esc(d.note)}` : ''}</div></div>${healthBadge(x)}</div>`).join('')
+        : `<div class="empty">No projects are waiting on this one.</div>`}</div>`;
+  }
+  else if(ui.panelTab === 'updates'){
     const ups = [...p.updates].sort((a,b) => b.date.localeCompare(a.date));
     body.innerHTML = `
       <div class="field"><label for="newUpdate">This week's update</label><textarea id="newUpdate" rows="3" placeholder="What moved, what's stuck, what's next"></textarea></div>
       <button class="btn primary" data-action="add-update" style="margin-bottom:14px">Add update</button>
       <div class="list">${ups.length ? ups.map(u => `
-        <div class="update"><div class="d"><span>${fmtDate(u.date)}</span><button class="icon-btn" data-action="del-update" data-id="${u.id}" aria-label="Delete">✕</button></div>${esc(u.text)}</div>`).join('')
-        : `<div class="empty">No updates yet. The latest update feeds the weekly status report.</div>`}</div>`;
+        <div class="update"><div class="d"><span>${fmtDate(u.date)}${u.by ? ' · ' + esc(u.by) : ''}</span><button class="icon-btn" data-action="del-update" data-id="${u.id}" aria-label="Delete">✕</button></div>${esc(u.text)}</div>`).join('')
+        : `<div class="empty">No updates yet. The latest update feeds the weekly status report. Projects without a recent update are flagged.</div>`}</div>`;
   }
+  else {
+    body.innerHTML = auditList(state.audit.filter(a => a.projectId === p.id));
+  }
+}
+
+function wouldCycle(fromId, toId){
+  // fromId waits on toId → a loop if toId already (directly or indirectly) waits on fromId
+  const seen = new Set(), stack = [toId];
+  while(stack.length){
+    const id = stack.pop(); if(id === fromId) return true;
+    if(seen.has(id)) continue; seen.add(id);
+    (getProject(id)?.deps || []).forEach(d => stack.push(d.on));
+  }
+  return false;
+}
+
+/* ============ Dialog ============ */
+let dlgCfg = null;
+function openDialog(cfg){
+  dlgCfg = cfg;
+  const d = $('#dlg');
+  d.innerHTML = `<form id="dlgForm" novalidate>
+    <div class="dlg-head"><h3>${esc(cfg.title)}</h3></div>
+    <div class="dlg-body">${cfg.body}<div class="dlg-err" id="dlgErr"></div></div>
+    <div class="dlg-foot"><button type="button" class="btn" data-action="dlg-cancel">${esc(cfg.cancelLabel || 'Cancel')}</button>
+      ${cfg.okLabel === null ? '' : `<button type="submit" class="btn primary">${esc(cfg.okLabel || 'Save')}</button>`}</div></form>`;
+  if(!d.open) d.showModal();
+  cfg.onRender?.();
+  const f = d.querySelector('[autofocus]') || d.querySelector('.dlg-body input:not([type=checkbox]),.dlg-body textarea');
+  f?.focus();
+}
+function closeDialog(cancelled){
+  const cfg = dlgCfg; dlgCfg = null;
+  if($('#dlg').open) $('#dlg').close();
+  if(cancelled) cfg?.onCancel?.();
+}
+$('#dlg').addEventListener('submit', e => {
+  e.preventDefault();
+  if(!dlgCfg) return;
+  const err = dlgCfg.onOk?.();
+  if(typeof err === 'string'){ $('#dlgErr').textContent = err; return; }
+  closeDialog(false);
+});
+$('#dlg').addEventListener('cancel', e => { e.preventDefault(); closeDialog(true); });
+const dv = id => ($('#' + id)?.value ?? '').trim();
+
+function approveDialog(r){
+  openDialog({
+    title: `Approve "${r.title}"`,
+    okLabel: 'Approve and create project',
+    body: `
+      <div class="muted small" style="margin-bottom:10px">Priority score ${intakeScore(r)} · requested by ${esc(r.requester || '—')}${r.estFte ? ` · estimated ${fte(r.estFte)} FTE` : ''}${r.estCost ? `, ${money(r.estCost)}` : ''}</div>
+      <div class="field-row">
+        <div class="field"><label for="d_by">Approved by *</label><input id="d_by" type="text" value="${esc(currentUser())}" placeholder="Name or board"></div>
+        <div class="field"><label for="d_due">Target due date</label><input id="d_due" type="date" value="${addDays(90)}"></div>
+      </div>
+      <div class="field"><label for="d_reason">Why approve it? *</label><textarea id="d_reason" rows="3" placeholder="Business case, what it unlocks, why now"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label for="d_owner">Project owner</label><input id="d_owner" type="text" placeholder="Assign now or later"></div>
+        <div class="field"><label for="d_fte">Team size (FTE) *</label><input id="d_fte" type="number" min="0" step="0.5" value="${r.estFte || ''}"></div>
+      </div>
+      <div class="field"><label for="d_budget">Approved budget ($)</label><input id="d_budget" type="number" min="0" step="1000" value="${r.estCost || ''}"></div>
+      <div id="capCheck"></div>
+      <label class="check-line" id="overWrap" hidden><input type="checkbox" id="d_over"> <span>Approve anyway. I've explained in the reason how we'll cover the gap (e.g. pausing other work, adding contractors).</span></label>`,
+    onRender: updateCapCheck,
+    onInput: updateCapCheck,
+    onOk: () => {
+      const by = dv('d_by'), reason = dv('d_reason'), owner = dv('d_owner'), f = num(dv('d_fte'));
+      if(!by) return 'Enter who approved this.';
+      if(reason.length < 5) return 'Give a reason for approving it.';
+      if(!(f > 0)) return 'Enter the team size in FTE so capacity can be checked.';
+      const c = capacityCheck(f, owner);
+      if((c.over || c.ownerOver) && !$('#d_over').checked) return 'This exceeds capacity. Tick "Approve anyway" to confirm.';
+      const today = todayISO();
+      const approval = {by, date:today, reason, fte:f, committedBefore:c.committed, capacity:c.cap, overCapacity:c.over || c.ownerOver};
+      const p = blankProject({name:r.title, owner, sponsor:r.requester, startDate:today, dueDate:dv('d_due') || addDays(90), priority:intakeScore(r),
+        summary:r.notes, fte:f, budget:{approved:num(dv('d_budget')), actual:0, forecast:num(dv('d_budget'))}, approval});
+      state.projects.push(p);
+      r.status = 'Approved'; r.projectId = p.id; r.decision = {by, date:today, reason, overCapacity:approval.overCapacity};
+      logAudit('Request approved', `Approved by ${by}. ${fte(f)} FTE, budget ${money(p.budget.approved)}. Capacity after approval: ${fte(c.after)} of ${fte(c.cap)} FTE${approval.overCapacity ? ' (OVER CAPACITY)' : ''}. Reason: ${reason}`, p.id);
+      save(); ui.view = 'portfolio'; render(); openPanel(p.id); toast('Project created from request');
+    }
+  });
+}
+function updateCapCheck(){
+  const box = $('#capCheck'); if(!box) return;
+  const f = num(dv('d_fte')), owner = dv('d_owner'), c = capacityCheck(f, owner);
+  const lines = [];
+  lines.push(`<div class="check ${c.over ? 'bad' : c.cap && c.after/c.cap >= .9 ? 'warn' : 'ok'}"><b>Team capacity: ${c.over ? 'over capacity' : 'fits'}</b>
+    ${fte(c.committed)} of ${fte(c.cap)} FTE committed today. After this: ${fte(c.after)} FTE${c.over ? `, ${fte(c.after - c.cap)} over` : ` (${c.cap ? Math.round(c.after/c.cap*100) : 0}%)`}.</div>`);
+  if(owner) lines.push(`<div class="check ${c.ownerOver ? 'bad' : 'ok'}"><b>Owner load: ${esc(owner)}</b>
+    Already owns ${plural(c.ownerCount,'active project')}; the limit is ${num(S().maxPerOwner)}.${c.ownerOver ? ' This would put them over.' : ''}</div>`);
+  box.innerHTML = lines.join('');
+  $('#overWrap').hidden = !(c.over || c.ownerOver);
+}
+
+function declineDialog(r){
+  openDialog({
+    title: `Decline "${r.title}"`, okLabel: 'Decline request',
+    body: `
+      <div class="field"><label for="d_by">Declined by *</label><input id="d_by" type="text" value="${esc(currentUser())}"></div>
+      <div class="field"><label for="d_reason">Reason *</label><textarea id="d_reason" rows="3" placeholder="Shared with the requester"></textarea></div>`,
+    onOk: () => {
+      const by = dv('d_by'), reason = dv('d_reason');
+      if(!by) return 'Enter who declined this.';
+      if(reason.length < 5) return 'Give a reason so the requester knows why.';
+      r.status = 'Declined'; r.decision = {by, date:todayISO(), reason};
+      logAudit('Request declined', `${r.title}. Declined by ${by}. Reason: ${reason}`, null, r.title);
+      save(); render(); toast('Request declined');
+    }
+  });
+}
+
+function overrideDialog(p, level, onCancel){
+  const info = healthInfo(p);
+  openDialog({
+    title: `Set health to "${HEALTH_LABEL[level]}" manually`, okLabel: 'Save override',
+    body: `
+      <div class="check ${info.level === 'green' ? 'ok' : info.level === 'amber' ? 'warn' : 'bad'}"><b>Calculated health: ${HEALTH_LABEL[info.level]}</b>${info.reasons.map(esc).join('; ')}</div>
+      <p class="small muted" style="margin-top:0">The calculated health and its reasons stay visible on the project, the portfolio and the status report.</p>
+      <div class="field"><label for="d_by">Set by *</label><input id="d_by" type="text" value="${esc(p.healthOverride === level && p.overrideBy ? p.overrideBy : currentUser())}"></div>
+      <div class="field"><label for="d_reason">Why does the calculated health not reflect reality? *</label><textarea id="d_reason" rows="3" autofocus>${esc(p.healthOverride === level ? p.overrideReason : '')}</textarea></div>`,
+    onCancel,
+    onOk: () => {
+      const by = dv('d_by'), reason = dv('d_reason');
+      if(!by) return 'Enter who is setting the override.';
+      if(reason.length < 5) return 'Explain why. This appears in the status report.';
+      const before = p.healthOverride ? `manual ${HEALTH_LABEL[p.healthOverride]}` : `Automatic (calculated ${HEALTH_LABEL[info.level]})`;
+      p.healthOverride = level; p.overrideBy = by; p.overrideReason = reason; p.overrideDate = todayISO();
+      logAudit('Health override', `${before} → manual ${HEALTH_LABEL[level]} (calculated is ${HEALTH_LABEL[info.level]}). Reason: ${reason}`, p.id);
+      commit();
+    }
+  });
+}
+
+/* ============ Team sharing (shared JSON file) ============ */
+// Works in Chrome and Edge: everyone opens the same JSON file in a synced folder (OneDrive, SharePoint, Google Drive for desktop, a network drive).
+const share = {
+  supported: 'showOpenFilePicker' in window && 'showSaveFilePicker' in window,
+  handle:null, name:'', connected:false, lastModified:0, dirty:false, timer:null, busy:false,
+  queueWrite(){
+    if(!this.handle || !this.connected) return;
+    this.dirty = true; clearTimeout(this.timer);
+    this.timer = setTimeout(() => this.write(), 700);
+  },
+  async write(){
+    if(!this.handle || !this.connected || this.busy) return;
+    this.busy = true;
+    try{
+      const f = await this.handle.getFile();
+      if(this.lastModified && f.lastModified > this.lastModified){
+        let theirs = null; try{ theirs = JSON.parse(await f.text()); }catch(e){}
+        const who = theirs?.meta?.savedBy ? ` by ${theirs.meta.savedBy}` : '';
+        if(confirm(`Someone else saved the shared file${who} since you last loaded it.\n\nOK = load their version (your latest change is discarded)\nCancel = keep your version and save over theirs`)){
+          this.busy = false; this.dirty = false; await this.read(true); return;
+        }
+      }
+      const w = await this.handle.createWritable();
+      await w.write(JSON.stringify(state, null, 2)); await w.close();
+      this.lastModified = (await this.handle.getFile()).lastModified;
+      this.dirty = false;
+    }catch(e){
+      this.connected = false; toast('Could not save to the shared file. Reconnect it from Team sharing.');
+    }
+    this.busy = false; renderChrome();
+  },
+  async read(announce){
+    const f = await this.handle.getFile();
+    const s = JSON.parse(await f.text());
+    if(!s || !Array.isArray(s.projects)) throw new Error('not a hub file');
+    state = normalize(s); this.lastModified = f.lastModified;
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+    if(ui.openId && !getProject(ui.openId)) closePanel(); else if(ui.openId) renderPanel();
+    render();
+    if(announce) toast(`Loaded latest shared data${state.meta?.savedBy ? ` (saved by ${state.meta.savedBy})` : ''}`);
+  },
+  async poll(){
+    if(!this.handle || !this.connected || this.busy || this.dirty || $('#dlg').open) return;
+    try{
+      const f = await this.handle.getFile();
+      if(f.lastModified > this.lastModified) await this.read(true);
+    }catch(e){}
+  },
+  async perm(){
+    const opts = {mode:'readwrite'};
+    if(await this.handle.queryPermission(opts) === 'granted') return true;
+    return (await this.handle.requestPermission(opts)) === 'granted';
+  },
+  async remember(){ try{ await idb('put', this.handle); }catch(e){} },
+  async forget(){ try{ await idb('delete'); }catch(e){} }
+};
+const FILE_TYPES = [{description:'PMO Hub data', accept:{'application/json':['.json']}}];
+function idb(op, val){
+  return new Promise((res, rej) => {
+    const req = indexedDB.open('pmo-hub', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('kv');
+    req.onerror = () => rej(req.error);
+    req.onsuccess = () => {
+      const tx = req.result.transaction('kv', op === 'get' ? 'readonly' : 'readwrite'), st = tx.objectStore('kv');
+      const r = op === 'get' ? st.get('shareHandle') : op === 'put' ? st.put(val, 'shareHandle') : st.delete('shareHandle');
+      r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+    };
+  });
+}
+function shareDialog(){
+  const status = !share.supported
+    ? `<div class="check warn"><b>Not available in this browser</b>Team sharing needs Chrome or Microsoft Edge on a computer. You can still use Export and Import to pass a file around.</div>`
+    : share.handle && share.connected
+      ? `<div class="check ok"><b>Connected to ${esc(share.name)}</b>Your changes save to this file automatically, and changes others make load in within about 20 seconds.</div>`
+      : share.handle
+        ? `<div class="check warn"><b>${esc(share.name)} needs reconnecting</b>Your browser asks for permission again each session.</div>`
+        : '';
+  openDialog({
+    title: 'Team sharing', okLabel: null, cancelLabel: 'Close',
+    body: `${status}
+      <p class="small" style="margin-top:0">There's no server behind this app, so the team shares one data file. Save it in a folder everyone can reach and that syncs: OneDrive, SharePoint, Google Drive for desktop, or a network drive. Everyone opens that same file here. Changes save to it automatically, and the Activity log records who changed what.</p>
+      <div class="list" style="margin-bottom:8px">
+        ${share.handle && !share.connected ? `<button class="btn primary" data-action="share-reconnect">Reconnect ${esc(share.name)}</button>` : ''}
+        <button class="btn ${share.handle ? '' : 'primary'}" data-action="share-create" ${share.supported ? '' : 'disabled'}>Create a shared file from my current data</button>
+        <button class="btn" data-action="share-open" ${share.supported ? '' : 'disabled'}>Open an existing shared file</button>
+        ${share.handle ? `<button class="btn danger" data-action="share-disconnect">Disconnect (keep working in this browser only)</button>` : ''}
+      </div>
+      <p class="muted small">If two people save at the same moment, the app warns you and asks whose version to keep. For a team larger than a handful of people, a real database is the next step (see the roadmap).</p>
+      ${currentUser() ? '' : `<div class="gaps"><strong>Set your name first</strong> so the activity log shows who made each change. <button class="linkish" data-action="set-user">Set it now</button></div>`}`
+  });
 }
 
 /* ============ Actions ============ */
 function commit(){ save(); if(ui.openId) renderPanel(); render(); }
 
 const actions = {
-  view: el => { ui.view = el.dataset.view; ui.approveId = null; render(); },
-  open: el => openPanel(el.dataset.id),
+  view: el => { ui.view = el.dataset.view; render(); window.scrollTo(0,0); },
+  open: el => { if($('#dlg').open) closeDialog(true); openPanel(el.dataset.id); },
   close: () => closePanel(),
   ptab: el => { ui.panelTab = el.dataset.tab; renderPanel(); },
+  'dlg-cancel': () => closeDialog(true),
+  'set-user': () => {
+    const n = prompt('Your name (used for approvals, overrides and the activity log):', currentUser());
+    if(n === null) return;
+    try{ localStorage.setItem(USER_KEY, n.trim()); }catch(e){}
+    if($('#dlg').open) closeDialog(false);
+    render(); toast(n.trim() ? `Changes will be recorded as ${n.trim()}` : 'Name cleared');
+  },
   'new-project': () => {
-    const p = {id:uid(), name:'New project', owner:'', sponsor:'', phase:'Initiate', startDate:todayISO(), dueDate:addDays(90), percent:0, healthOverride:'', priority:null, summary:'',
-               tasks:[], raid:[], updates:[], dependsOn:[], history:[], approvedBudget:0, actual:0, forecast:0};
-    state.projects.push(p); save(); render(); openPanel(p.id);
+    const p = blankProject({});
+    state.projects.push(p); logAudit('Project created', 'Created directly (not through intake)', p.id);
+    save(); render(); openPanel(p.id);
   },
   'del-project': () => {
     const p = getProject(ui.openId);
     if(p && confirm(`Delete "${p.name}"? This can't be undone.`)){
+      const waiting = state.projects.filter(x => x.deps.some(d => d.on === p.id));
+      waiting.forEach(x => { x.deps = x.deps.filter(d => d.on !== p.id); });
       state.projects = state.projects.filter(x => x.id !== p.id);
-      state.projects.forEach(x => x.dependsOn = x.dependsOn.filter(d => d !== p.id));
+      logAudit('Project deleted', `${p.name}${waiting.length ? `. Removed dependencies from: ${waiting.map(x => x.name).join(', ')}` : ''}`, null, p.name);
       save(); closePanel();
     }
   },
-  'add-dep': () => {
-    const id = $('#depSelect').value; if(!id) return;
-    const p = getProject(ui.openId); if(!p.dependsOn.includes(id)) p.dependsOn.push(id);
-    commit(); toast('Dependency added');
-  },
-  'del-dep': el => { const p = getProject(ui.openId); p.dependsOn = p.dependsOn.filter(d => d !== el.dataset.id); commit(); },
+  'edit-override': () => { const p = getProject(ui.openId); overrideDialog(p, p.healthOverride, () => {}); },
   'add-task': () => {
     const title = $('#newTask').value.trim(); if(!title) return $('#newTask').focus();
-    getProject(ui.openId).tasks.push({id:uid(), title, owner:$('#newTaskOwner').value.trim(), due:$('#newTaskDue').value, done:false});
+    const t = {id:uid(), title, owner:$('#newTaskOwner').value.trim(), due:$('#newTaskDue').value, done:false};
+    getProject(ui.openId).tasks.push(t);
+    logAudit('Task added', `${title}${t.owner ? ` (${t.owner})` : ''}${t.due ? `, due ${fmtDate(t.due)}` : ''}`, ui.openId);
     commit(); $('#newTask')?.focus();
   },
-  'del-task': el => { const p = getProject(ui.openId); p.tasks = p.tasks.filter(t => t.id !== el.dataset.id); commit(); },
+  'del-task': el => {
+    const p = getProject(ui.openId), t = p.tasks.find(x => x.id === el.dataset.id);
+    p.tasks = p.tasks.filter(x => x.id !== el.dataset.id); logAudit('Task deleted', t?.title || '', p.id); commit();
+  },
   'add-raid': () => {
     const title = $('#raidTitle').value.trim(); if(!title) return $('#raidTitle').focus();
-    const type = $('#raidType').value;
-    getProject(ui.openId).raid.push({id:uid(), type, title, owner:$('#raidOwner').value.trim(), impact:$('#raidImpact').value.trim(),
-      severity:$('#raidSev').value, status:'Open', date:todayISO()});
+    const type = $('#raidType').value, severity = $('#raidSev').value;
+    getProject(ui.openId).raid.push({id:uid(), type, title, owner:$('#raidOwner').value.trim(), severity, status: CLOSED_ON_ADD.includes(type) ? 'Closed' : 'Open', date:todayISO()});
+    logAudit('Log item added', `${type} (${severity}): ${title}`, ui.openId);
     commit();
   },
-  'toggle-raid': el => { const r = getProject(ui.openId).raid.find(x => x.id === el.dataset.id); r.status = r.status==='Open' ? 'Closed' : 'Open'; commit(); },
-  'del-raid': el => { const p = getProject(ui.openId); p.raid = p.raid.filter(r => r.id !== el.dataset.id); commit(); },
+  'toggle-raid': el => {
+    const r = getProject(ui.openId).raid.find(x => x.id === el.dataset.id);
+    r.status = r.status==='Open' ? 'Closed' : 'Open';
+    logAudit(r.status === 'Closed' ? 'Log item closed' : 'Log item reopened', `${r.type}: ${r.title}`, ui.openId); commit();
+  },
+  'del-raid': el => {
+    const p = getProject(ui.openId), r = p.raid.find(x => x.id === el.dataset.id);
+    p.raid = p.raid.filter(x => x.id !== el.dataset.id); logAudit('Log item deleted', r ? `${r.type}: ${r.title}` : '', p.id); commit();
+  },
   'raid-filter': el => { ui.raidFilter = el.dataset.f; renderPanel(); },
+  'add-dep': () => {
+    const p = getProject(ui.openId), on = $('#depOn').value, u = getProject(on); if(!u) return;
+    if(wouldCycle(p.id, on)) return toast('That would create a loop');
+    const d = {id:uid(), on, neededBy:$('#depNeed').value, note:$('#depNote').value.trim()};
+    p.deps.push(d);
+    logAudit('Dependency added', `Waits on "${u.name}"${d.neededBy ? `, needed by ${fmtDate(d.neededBy)}` : ''}${d.note ? `: ${d.note}` : ''}`, p.id);
+    commit();
+  },
+  'del-dep': el => {
+    const p = getProject(ui.openId), d = p.deps.find(x => x.id === el.dataset.id), u = d && getProject(d.on);
+    p.deps = p.deps.filter(x => x.id !== el.dataset.id);
+    logAudit('Dependency removed', `No longer waits on "${u ? u.name : 'deleted project'}"`, p.id); commit();
+  },
   'add-update': () => {
     const text = $('#newUpdate').value.trim(); if(!text) return $('#newUpdate').focus();
-    getProject(ui.openId).updates.push({id:uid(), date:todayISO(), text}); commit();
+    getProject(ui.openId).updates.push({id:uid(), date:todayISO(), text, by:currentUser()});
+    logAudit('Status update added', text, ui.openId); commit();
   },
-  'del-update': el => { const p = getProject(ui.openId); p.updates = p.updates.filter(u => u.id !== el.dataset.id); commit(); },
+  'del-update': el => {
+    const p = getProject(ui.openId), u = p.updates.find(x => x.id === el.dataset.id);
+    p.updates = p.updates.filter(x => x.id !== el.dataset.id); logAudit('Status update deleted', u?.text || '', p.id); commit();
+  },
   'add-intake': () => {
     const title = $('#in_title').value.trim(); if(!title) return $('#in_title').focus();
     const n = id => Number($('#in_'+id).value);
-    state.intake.push({id:uid(), title, requester:$('#in_requester').value.trim(), owner:$('#in_owner').value.trim(), notes:$('#in_notes').value.trim(),
-      value:n('value'), urgency:n('urgency'), alignment:n('alignment'), effort:n('effort'), status:'New', created:todayISO()});
+    const r = {id:uid(), title, requester:$('#in_requester').value.trim(), notes:$('#in_notes').value.trim(),
+      value:n('value'), urgency:n('urgency'), alignment:n('alignment'), effort:n('effort'), estFte:num($('#in_fte').value), estCost:num($('#in_cost').value), status:'New', created:todayISO()};
+    state.intake.push(r);
+    logAudit('Request submitted', `${title} (score ${intakeScore(r)})${r.requester ? `, from ${r.requester}` : ''}`, null, title);
     save(); render(); toast('Request submitted');
   },
-  review: el => { ui.approveId = el.dataset.id; render(); },
-  'cancel-approve': () => { ui.approveId = null; render(); },
-  'confirm-approve': el => {
+  approve: el => approveDialog(state.intake.find(x => x.id === el.dataset.id)),
+  decline: el => declineDialog(state.intake.find(x => x.id === el.dataset.id)),
+  'del-intake': el => {
     const r = state.intake.find(x => x.id === el.dataset.id);
-    const owner = $('#ap_owner').value.trim(), by = $('#ap_by').value.trim(), reason = $('#ap_reason').value.trim();
-    if(!owner) return $('#ap_owner').focus();
-    if(!by) return $('#ap_by').focus();
-    if(!reason) return $('#ap_reason').focus();
-    const n = activeCountFor(owner);
-    const capacity = n >= OWNER_CAPACITY ? `Approved over capacity: ${owner} had ${n} active projects` : `Capacity OK: ${owner} had ${n} active project${n===1?'':'s'}`;
-    const p = {id:uid(), name:r.title, owner, sponsor:r.requester, phase:'Initiate', startDate:todayISO(), dueDate:addDays(90), percent:0,
-      healthOverride:'', priority:intakeScore(r), summary:r.notes, tasks:[], raid:[], updates:[], dependsOn:[], history:[],
-      approvedBudget:0, actual:0, forecast:0, approval:{by, reason, date:todayISO(), capacity}};
-    state.projects.push(p);
-    r.status = 'Approved'; r.projectId = p.id; r.owner = owner; r.approval = {by, reason, date:todayISO(), capacity};
-    ui.approveId = null; ui.view = 'portfolio';
-    save(); render(); openPanel(p.id); toast('Project created from request');
+    if(!confirm(`Delete the request "${r.title}"?`)) return;
+    state.intake = state.intake.filter(x => x.id !== el.dataset.id);
+    logAudit('Request deleted', r.title, null, r.title); save(); render();
   },
-  decline: el => { state.intake.find(x => x.id === el.dataset.id).status = 'Declined'; save(); render(); },
-  'del-intake': el => { state.intake = state.intake.filter(x => x.id !== el.dataset.id); save(); render(); },
   'copy-report': async () => {
     const text = $('#reportText').value;
     try{ await navigator.clipboard.writeText(text); toast('Report copied'); }
     catch(e){ $('#reportText').select(); document.execCommand('copy'); toast('Report copied'); }
   },
   'download-report': () => download(`status-report-${weekEnding()}.md`, $('#reportText').value, 'text/markdown'),
+  'act-more': () => { ui.actLimit += 300; renderActivity(); },
+  'export-audit': () => {
+    const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
+    const rows = [['When','Who','Project','Action','Details'], ...filteredAudit().map(a => [new Date(a.ts).toLocaleString(), a.user, a.project, a.action, a.detail])];
+    download(`pmo-hub-activity-${todayISO()}.csv`, rows.map(r => r.map(q).join(',')).join('\r\n'), 'text/csv');
+  },
   export: () => download(`pmo-hub-backup-${todayISO()}.json`, JSON.stringify(state, null, 2), 'application/json'),
   import: () => $('#importFile').click(),
-  reset: () => { if(confirm('Replace everything with the sample data?')){ state = sampleData(); save(); if(ui.openId) closePanel(); render(); toast('Sample data restored'); } }
+  reset: () => {
+    if(confirm('Replace everything with the sample data?' + (share.connected ? '\n\nThis also overwrites the shared file for everyone.' : ''))){
+      state = sampleData(); save(); if(ui.openId) closePanel(); render(); toast('Sample data restored');
+    }
+  },
+  share: () => shareDialog(),
+  'share-create': async () => {
+    try{
+      share.handle = await showSaveFilePicker({suggestedName:'pmo-hub-shared.json', types:FILE_TYPES});
+      share.name = share.handle.name; share.connected = true; share.lastModified = 0;
+      await share.write(); await share.remember();
+      logAudit('Team sharing', `Created shared file ${share.name}`); save();
+      closeDialog(false); render(); toast(`Saving to ${share.name}`);
+    }catch(e){ if(e.name !== 'AbortError') toast('Could not create the shared file'); }
+  },
+  'share-open': async () => {
+    try{
+      const [h] = await showOpenFilePicker({types:FILE_TYPES});
+      share.handle = h; share.name = h.name;
+      if(!(await share.perm())) throw new Error('permission');
+      share.connected = true; share.dirty = false;
+      await share.read(false); await share.remember();
+      closeDialog(false); render(); toast(`Connected to ${share.name}`);
+    }catch(e){
+      if(e.name !== 'AbortError'){ share.connected = false; toast("That file couldn't be opened as PMO Hub data"); }
+    }
+  },
+  'share-reconnect': async () => {
+    try{
+      if(!(await share.perm())) return toast('Permission was not granted');
+      share.connected = true; share.dirty = false;
+      await share.read(true); closeDialog(false); render();
+    }catch(e){ share.connected = false; toast('Could not open the shared file. It may have moved.'); }
+  },
+  'share-disconnect': async () => {
+    share.handle = null; share.name = ''; share.connected = false; await share.forget();
+    closeDialog(false); render(); toast('Disconnected. Working in this browser only.');
+  }
 };
 
 function download(name, text, type){
@@ -944,21 +1476,63 @@ document.addEventListener('click', e => {
   const fn = actions[el.dataset.action]; if(fn) fn(el);
 });
 document.addEventListener('keydown', e => {
+  if($('#dlg').open) return;
   if(e.key === 'Escape' && ui.openId) closePanel();
   if(e.key === 'Enter' && e.target.matches('.card')) openPanel(e.target.dataset.id);
   if(e.key === 'Enter' && e.target.matches('#newTask,#newTaskOwner')) actions['add-task']();
-  if(e.key === 'Enter' && e.target.matches('#raidTitle,#raidOwner,#raidImpact')) actions['add-raid']();
+  if(e.key === 'Enter' && e.target.matches('#raidTitle,#raidOwner')) actions['add-raid']();
 });
+// Remember a field's value before editing so the audit trail can show old → new.
+function snapField(e){
+  const t = e.target; if(!t.dataset || !t.dataset.field || !ui.openId) return;
+  const f = t.dataset.field; if(!(f in ui.snap)) ui.snap[f] = getPath(getProject(ui.openId), f);
+}
+document.addEventListener('focusin', snapField);
+document.addEventListener('pointerdown', snapField);
 document.addEventListener('change', e => {
   const t = e.target;
-  if(t.dataset.action === 'toggle-task'){ const task = getProject(ui.openId).tasks.find(x => x.id === t.dataset.id); task.done = t.checked; commit(); }
+  if(t.dataset.action === 'toggle-task'){
+    const task = getProject(ui.openId).tasks.find(x => x.id === t.dataset.id); task.done = t.checked;
+    logAudit(t.checked ? 'Task completed' : 'Task reopened', task.title, ui.openId); commit(); return;
+  }
+  if(t.dataset.field === 'healthOverride'){
+    const p = getProject(ui.openId), level = t.value, prev = p.healthOverride;
+    if(!level){
+      if(prev){
+        logAudit('Health override removed', `Manual ${HEALTH_LABEL[prev]} removed; back to calculated ${HEALTH_LABEL[healthInfo(p).level]}`, p.id);
+        p.healthOverride = ''; p.overrideReason = ''; p.overrideBy = ''; p.overrideDate = ''; commit();
+      }
+    } else {
+      overrideDialog(p, level, () => { t.value = prev; });
+    }
+    delete ui.snap.healthOverride; return;
+  }
+  if(t.dataset.field && ui.openId){
+    const f = t.dataset.field, p = getProject(ui.openId);
+    const oldV = ui.snap[f], newV = getPath(p, f);
+    if(f in ui.snap && String(oldV ?? '') !== String(newV ?? '')){
+      logAudit('Field changed', `${FIELD_LABELS[f] || f}: ${fmtVal(f, oldV)} → ${fmtVal(f, newV)}`, p.id); save();
+      if(ui.panelTab === 'overview') $('#panelTabs button:last-child').textContent = `History (${state.audit.filter(a => a.projectId === p.id).length})`;
+    }
+    delete ui.snap[f]; return;
+  }
+  if(t.dataset.setting){
+    const k = t.dataset.setting, oldV = S()[k], v = num(t.value);
+    if(v !== oldV){ S()[k] = v; logAudit('Settings changed', `${t.closest('.field').querySelector('label').textContent}: ${oldV} → ${v}`); save(); render(); }
+    return;
+  }
   if(t.id === 'healthFilter'){ ui.health = t.value; renderPortfolio(); }
   if(t.id === 'sortBy'){ ui.sort = t.value; renderPortfolio(); }
   if(t.id === 'reportScope'){ ui.reportScope = t.value; renderReport(); }
+  if(t.id === 'actProject'){ ui.actProject = t.value; ui.actLimit = 150; renderActivity(); }
+  if(t.id === 'actUser'){ ui.actUser = t.value; ui.actLimit = 150; renderActivity(); }
   if(t.id === 'importFile' && t.files[0]){
     const reader = new FileReader();
     reader.onload = () => {
-      try{ const s = JSON.parse(reader.result); if(!Array.isArray(s.projects)) throw 0; state = normalize(s); save(); render(); toast('Data imported'); }
+      try{
+        const s = JSON.parse(reader.result); if(!Array.isArray(s.projects)) throw 0;
+        state = normalize(s); logAudit('Data imported', `Imported ${plural(state.projects.length,'project')} from a backup file`); save(); render(); toast('Data imported');
+      }
       catch(err){ alert('That file is not a PMO Hub backup.'); }
       t.value = '';
     };
@@ -967,15 +1541,31 @@ document.addEventListener('change', e => {
 });
 document.addEventListener('input', e => {
   const t = e.target;
+  if(t.closest('#dlg')){ dlgCfg?.onInput?.(); return; }
   if(t.id === 'search'){ ui.search = t.value; const pos = t.selectionStart; renderPortfolio(); const s = $('#search'); s.focus(); s.setSelectionRange(pos, pos); return; }
-  if(t.id === 'ap_owner'){ const c = $('#capText'); if(c) c.textContent = capacityText(t.value); return; }
-  const field = t.dataset.field; if(!field || !ui.openId) return;
+  if(t.id === 'actSearch'){ ui.actSearch = t.value; ui.actLimit = 150; $('#actList').innerHTML = auditList(filteredAudit().slice(0, ui.actLimit)); return; }
+  const field = t.dataset.field; if(!field || !ui.openId || field === 'healthOverride') return;
   const p = getProject(ui.openId);
-  const numeric = ['percent','approvedBudget','actual','forecast'];
-  p[field] = numeric.includes(field) ? (Number(t.value) || 0) : t.value;
-  if(field === 'percent') { const l = $('#pctLabel'); if(l) l.textContent = t.value + '%'; }
-  save(); renderPanelHead(); if(ui.view === 'portfolio') renderPortfolio();
+  if(!(field in ui.snap)) ui.snap[field] = getPath(p, field);
+  setPath(p, field, (t.type === 'number' || t.type === 'range') ? num(t.value) : t.value);
+  if(field === 'percent') $('#pctLabel').textContent = t.value + '%';
+  save(); renderPanelHead(); if(ui.view !== 'report' && ui.view !== 'activity') render();
 });
+window.addEventListener('focus', () => share.poll());
+setInterval(() => share.poll(), 20000);
+
+// Restore a previously connected shared file (permission is re-asked on first click).
+(async () => {
+  if(!share.supported) return;
+  try{
+    const h = await idb('get');
+    if(h){
+      share.handle = h; share.name = h.name;
+      if(await h.queryPermission({mode:'readwrite'}) === 'granted'){ share.connected = true; await share.read(false); }
+      renderChrome();
+    }
+  }catch(e){}
+})();
 
 render();
 </script>
